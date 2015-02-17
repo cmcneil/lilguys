@@ -13,7 +13,8 @@ class Lilguy(models.Model):
     # longitude and latitude positions of most recently logged location
     current_lon = models.FloatField()
     current_lat = models.FloatField()
-
+    # Timestamp of creation.
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     def __unicode__(self):
         return ("Lilguy: " + self.name + 
                 " (" + self.code + "), "
@@ -40,7 +41,9 @@ class Chapter(models.Model):
     dropped_at_lat = models.FloatField()
     # The author can include a picture of the guy.
     picture = models.ImageField(upload_to='adventures', max_length=200)
-    
+    # Timestamp
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
     def __unicode__(self):
         return (self.__class__.__name__ + 
                 "(title=" + title + 
