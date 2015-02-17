@@ -4,7 +4,7 @@
 
 {% for chapter in chapters %}
     <h2>{{ chapter.title }}, {{ chapter.timestamp }}</h2>
-    <p>{{ chapter.text }}</p>
+    <p>{{ chapter.story_text }}</p>
     <p>Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}})</p>
     <p><img href={{ chapter.picture.url }}></p>
 {% endfor %}
