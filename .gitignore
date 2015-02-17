@@ -6,8 +6,15 @@
 
 settings.py
 
-# emacs backup files
+# emacs backups and stuff
 *~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
 
 # vim backup files
 *.swp

@@ -1,38 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{{ lilguy.name }}'s Adventure</title>
+  <head>
+  
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../favicon.ico">
+    
+    <title>{{ lilguy.name }}'s Adventure</title>
+    
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/static/bootstrap_custom.css">
+    <!-- should use STATIC_URL but it isn't working, sadness                      
+    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap_custom.css">           
+    -->
 
-        <!-- bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </head>
 
-
-    </head>
-    <body>
-
-<div class="jumbotron">
-    <iframe
-        width="600"
-        height="450"
+  <body>
+  
+  
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+      
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/lilguys">lilguys</a>
+        </div>
+        
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#about">we did this</a></li>
+            <li><a href="https://github.com/cmcneil/lilguys">github</a></li>
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>  
+  
+  
+  
+    <div class="jumbotron">
+      <iframe
+        width="100%"
+        height="500px"
         frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAMi4n47QH6dNiVtxHe0tpV5RZZup6fLY8&q;=Space+Needle,Seattle+WA">
-    </iframe>
-</div>
-
-<h1>The Grand Adventure of {{ lilguy.name }}</h1>
-<p><img src="{{ lilguy.pic.url }}"></p> 
-
-
-{% for chapter in chapters %}
-    <h2>{{ chapter.title }}, {{ chapter.timestamp }}</h2>
-    <p>{{ chapter.story_text }}</p>
-    <p>Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}})</p>
-    <p><img src="{{ chapter.picture.url }}"></p>
-{% endfor %}
-
-
-    </body>
+        src=" https://www.google.com/maps/embed/v1/place?key=AIzaSyAMi4n47QH6dNiVtxHe0tpV5RZZup6fLY8&q={{ lilguy.current_lat }},{{ lilguy.current_lon }}">
+      </iframe>
+    </div>
+    
+    <div class="container">
+      <h1>{{ lilguy.name }}'s grand adventure</h1>
+      
+      {% for chapter in chapters %}
+      <div class="panel panel-default">
+        <div class="panel-heading">{{ chapter.title }}</div>
+        <div class="panel-body">
+          <p>{{ chapter.story_text }}</p>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}}) | {{ chapter.timestamp }} 
+          </li>
+          <li class="list-group-item"><img class="img-responsive" src="{{ chapter.picture.url }}"></li>
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <footer class="footer">
+      <a name="about"></a>
+      <div class="container">
+        <br>
+        <p>this is an art project this is a drill</p>
+      </div>
+    </footer>
+    
+    
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
 </html>
