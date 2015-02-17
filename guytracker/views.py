@@ -9,7 +9,7 @@ def display_guy(request, lilguy_name):
     # finds all Chapters about lilguy_name
     chapters = (Chapter.objects.select_related()
                 .filter(lilguy__name=lilguy_name)
-                .order_by('-date_inserted'))
+                .order_by('timestamp'))
 
     lilguy = None
     if len(chapters) > 0:
