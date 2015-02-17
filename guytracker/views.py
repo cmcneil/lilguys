@@ -1,6 +1,7 @@
 from guytracker.models import Lilguy, Chapter
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.template import Context, loader, Template
 
 def display_guy(request, lilguy_name):
     """ Returns an HttpResponse for an individual lilguy's information \
@@ -17,5 +18,5 @@ def display_guy(request, lilguy_name):
     else:
         return render_to_response('error.html')
 
-    return (render_to_response('display_guy.html', 
+    return (render_to_response('display_guy.html',
                                {'lilguy': lilguy, 'chapters': chapters}))
