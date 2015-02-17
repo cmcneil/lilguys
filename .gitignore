@@ -5,3 +5,6 @@
 *.pyc
 
 settings.py
+
+# emacs backup files
+*~
