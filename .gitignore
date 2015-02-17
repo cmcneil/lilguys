@@ -1,0 +1,10 @@
+# Django stuff
+*.log
+
+# compiled python
+*.pyc
+
+settings.py
+
+# emacs backup files
+*~
