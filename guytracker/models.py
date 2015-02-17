@@ -33,3 +33,13 @@ class Chapter(models.Model):
     dropped_at_lat = models.FloatField()
     # The author can include a picture of the guy.
     picture = models.ImageField(upload_to='adventures', max_length=200)
+    
+    def __unicode__(self):
+        return (self.__class__.__name__ + 
+                "(title=" + title + 
+                "lilguy.name=" + lilguy.name
+                ", story_text=" + story_text +
+                ", found_at_lon=" + str(found_at_lon) +
+                ", found_at_lat=" + str(found_at_lat) +
+                ", dropped_at_lon=" + str(dropped_at_lon) +
+                ", dropped_at_lat=" + str(dropped_at_lat))
