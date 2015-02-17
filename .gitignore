@@ -1,0 +1,7 @@
+# Django stuff
+*.log
+
+# compiled python
+*.pyc
+
+settings.py
