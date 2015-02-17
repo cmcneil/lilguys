@@ -15,9 +15,12 @@ class Lilguy(models.Models):
     current_lat = models.FloatField()
 
     def __unicode__(self):
-        return ("Lilguy: " + self.name + " (" + self.code + 
-                "), currently located at (" + str(self.current_lon) + 
-                ", " + str(self.current_lat) + ") " )
+        return ("Lilguy: " + self.name + 
+                " (" + self.code + "), "
+                "currently located at (" + 
+                str(self.current_lon) + ", " + 
+                str(self.current_lat) + ") " )
+
 
 class Chapter(models.Model):
     """Describes a user-created chapter in a Lilguy's life."""
@@ -41,7 +44,7 @@ class Chapter(models.Model):
     def __unicode__(self):
         return (self.__class__.__name__ + 
                 "(title=" + title + 
-                "lilguy.name=" + lilguy.name
+                "lilguy.name=" + lilguy.name +
                 ", story_text=" + story_text +
                 ", found_at_lon=" + str(found_at_lon) +
                 ", found_at_lat=" + str(found_at_lat) +
