@@ -1,7 +1,7 @@
 from django.db import models
 # Create your models here.
 
-class Lilguy(models.Models):
+class Lilguy(models.Model):
     """ A little guy ready for adventure. """
 
     # unique key code for editing the little guy
