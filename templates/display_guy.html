@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ lilguy.name }}'s Adventure</title>
+
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+
+    </head>
+    <body>
+
+<div class="jumbotron">
+    <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAMi4n47QH6dNiVtxHe0tpV5RZZup6fLY8&q;=Space+Needle,Seattle+WA">
+    </iframe>
+</div>
+
 <h1>The Grand Adventure of {{ lilguy.name }}</h1>
 <p><img src="{{ lilguy.pic.url }}"></p> 
 
@@ -9,3 +33,6 @@
     <p><img src="{{ chapter.picture.url }}"></p>
 {% endfor %}
 
+
+    </body>
+</html>
