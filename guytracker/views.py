@@ -1,4 +1,4 @@
-from guytracker import Lilguy, Chapter
+from guytracker.models import Lilguy, Chapter
 from django.http import HttpResponse
 
 
