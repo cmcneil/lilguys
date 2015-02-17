@@ -4,6 +4,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    # This will match any url of the form /lilguys/lilguy_name, where
+    # lilguy_name is the name of a lilguy (matches any non / character).
+    # This page will display all information about a guy.
+    url(r'^lilguys/(?P<lilguy_name>[^/]+)/', 'guytracker.views.display_guy'),
+    url(r'lilguys/', 'guytracker.views.display_all'),
     # Examples:
     # url(r'^$', 'littleguys.views.home', name='home'),
     # url(r'^littleguys/', include('littleguys.foo.urls')),
