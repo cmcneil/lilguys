@@ -45,11 +45,10 @@ class Chapter(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return (self.__class__.__name__ + 
-                "(title=" + self.title + 
+        return ("Chapter(title=" + self.title + 
                 "lilguy.name=" + self.lilguy.name +
                 ", story_text=" + self.story_text +
-                ", found_at_lon=" + self.str(found_at_lon) +
-                ", found_at_lat=" + self.str(found_at_lat) +
-                ", dropped_at_lon=" + self.str(dropped_at_lon) +
-                ", dropped_at_lat=" + self.str(dropped_at_lat))
+                ", found_at_lon=" + str(self.found_at_lon) +
+                ", found_at_lat=" + str(self.found_at_lat) +
+                ", dropped_at_lon=" + str(self.dropped_at_lon) +
+                ", dropped_at_lat=" + str(self.dropped_at_lat))
