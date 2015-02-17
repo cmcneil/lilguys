@@ -8,3 +8,6 @@ settings.py
 
 # emacs backup files
 *~
+
+# vim backup files
+*.swp
