@@ -43,6 +43,8 @@ class Chapter(models.Model):
     picture = models.ImageField(upload_to='adventures', max_length=200)
     # Timestamp
     timestamp = models.DateTimeField(auto_now_add=True)
+    # Submiter's email(if subscribed)
+    email = models.EmailField(max_length=254)
 
     def __unicode__(self):
         return ("Chapter(title=" + self.title + 

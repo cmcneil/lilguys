@@ -73,6 +73,17 @@
         </ul>
       </div>
       {% endfor %}
+
+      <div class="panel panel-default">
+          <div class="panel-heading">Add a new chapter!</div>
+          <div class="panel-body">
+              <form enctype="multipart/form-data" action="/lilguys/{{ lilguy.name }}/" method="post">
+                  {% csrf_token %} 
+                  {{ chapter_form.as_ul }}
+                  <input type="submit" value="Submit" />
+              </form>
+          </div>
+      </div>
     </div>
     
     <footer class="footer">
