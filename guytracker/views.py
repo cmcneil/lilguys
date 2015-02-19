@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from guytracker.forms import ChapterForm
@@ -21,6 +21,17 @@ def display_guy(request, lilguy_name):
 
     if request.method == 'GET':
         chapter_form = ChapterForm()
+    elif request.method == 'POST':
+        chapter_form = ChapterForm(request.POST, request.FILES)
+        #print "cleaned data: " + chapter_form.cleaned_data
+        #print "Form title is: " + chapter_form.title
+        #print "Form picture is: " + chapter_form.picture
+        if chapter_form.is_valid():
+            new_chapter = chapter_form.save(commit=False)
+            new_chapter.lilguy = lilguy
+            new_chapter.save()
+            print "The form is valid! :D"
+            return HttpResponseRedirect("/lilguys/" + lilguy_name)
     
     return render_to_response('display_guy.html',
                               {'lilguy': lilguy, 
