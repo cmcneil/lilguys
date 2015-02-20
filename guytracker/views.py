@@ -3,14 +3,15 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from guytracker.forms import ChapterForm
 from guytracker.models import Lilguy, Chapter
-
-def display_guy(request, lilguy_name):
+import guytracker.utils as ut
+def display_guy(request, url_code):
     """ Returns an HttpResponse for an individual lilguy's information \
         and chapters page. """
-
+    
+    id = ut.urlsafe_code_to_lilguy_id(url_code)
     # finds all Chapters about lilguy_name
     chapters = (Chapter.objects.select_related()
-                .filter(lilguy__name=lilguy_name)
+                .filter(lilguy__id=id)
                 .order_by('timestamp'))
 
     lilguy = None
@@ -27,10 +28,11 @@ def display_guy(request, lilguy_name):
             new_chapter = chapter_form.save(commit=False)
             new_chapter.lilguy = lilguy
             new_chapter.save()
-            return HttpResponseRedirect("/lilguys/" + lilguy_name)
+            return HttpResponseRedirect("/lilguys/" + url_code)
     
     return render_to_response('display_guy.html',
                               {'lilguy': lilguy, 
+                               'url_code': url_code,
                                'chapters': chapters,
                                'chapter_form': chapter_form},
                               context_instance=RequestContext(request))
