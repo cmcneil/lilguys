@@ -8,7 +8,7 @@
     <title>{{ lilguy.name }}'s Adventure</title>
     
     <!-- bootstrap core css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL}}bootstrap.min.css">
     
     <!-- <link rel="stylesheet" href="/bootstrap_custom.css"> -->
     <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap_custom.css">           
@@ -42,7 +42,7 @@
     </nav>  
   
   
-  
+    <div id="mapwrap">
     <div class="jumbotron">
       <iframe
         width="100%"
@@ -52,19 +52,38 @@
       </iframe>
     </div>
     
-    <div class="container">
-      <h1>{{ lilguy.name }}'s grand adventure</h1>
+      <div id="avwrap">
+      <div id="avatar" class="center-block">
+        <a href="">
+          <img src="{{ lilguy.pic.url }}" id="img-avatar" class="img-thumbnail">
+        </a>
+      </div>
       
+      </div>
+
+    </div>
+    
+    <div class="container">
+      <div class="text-center">
+        <h1>{{ lilguy.name }}'s grand adventure</h1>      
+      </div>
+
       {% for chapter in chapters %}
       <div class="panel panel-default">
-        <div class="panel-heading">{{ chapter.title }}</div>
+          <div class="adventure-pic-wrap">
+            <img class="img-responsive" src="{{ chapter.picture.url }}">
+            <div class="adventure-title">
+              <h3>{{ chapter.title }}</h3>
+            </div>
+          </div>
+
         <div class="panel-body">
           <p>{{ chapter.story_text }}</p>
         </div>
         <ul class="list-group">
           <li class="list-group-item">Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}}) | {{ chapter.timestamp }} 
           </li>
-          <li class="list-group-item"><img class="img-responsive" src="{{ chapter.picture.url }}"></li>
+
         </ul>
       </div>
       {% endfor %}
@@ -92,11 +111,11 @@
     
     
     <!-- Bootstrap core JavaScript
-    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <!-- Seriously, Windows? u_u -->
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
