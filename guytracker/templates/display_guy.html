@@ -1,71 +1,33 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  
-    <meta charset="UTF-8">
-    <link rel="icon" href="../../favicon.ico">
+{% extends "base.html" %}
     
-    <title>{{ lilguy.name }}'s Adventure</title>
-    
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" href="{{ STATIC_URL}}bootstrap.min.css">
-    
-    <!-- <link rel="stylesheet" href="/bootstrap_custom.css"> -->
-    <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap_custom.css">           
+    {% block title %}{{ lilguy.name }}'s adventure{% endblock %}
 
-  </head>
-
-  <body>
-  
-  
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-      
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/lilguys">lilguys</a>
-        </div>
-        
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#about">we did this</a></li>
-            <li><a href="https://github.com/cmcneil/lilguys">github</a></li>
-            
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>  
-  
-  
-    <div id="mapwrap">
-    <div class="jumbotron">
+    {% block map %}
       <iframe
         width="100%"
         height="500px"
         frameborder="0" style="border:0"
         src=" https://www.google.com/maps/embed/v1/place?key=AIzaSyAMi4n47QH6dNiVtxHe0tpV5RZZup6fLY8&q={{ lilguy.current_lat }},{{ lilguy.current_lon }}">
       </iframe>
-    </div>
-    
-      <div id="avwrap">
-      <div id="avatar" class="center-block">
-        <a href="">
-          <img src="{{ lilguy.pic.url }}" id="img-avatar" class="img-thumbnail">
-        </a>
-      </div>
-      
-      </div>
+    {% endblock %}
 
-    </div>
-    
-    <div class="container">
+
+    {% block avatar %}
+      <div id="avwrap">
+        <div id="avatar" class="center-block">
+          <a href="">
+            <img src="{{ lilguy.pic.url }}" id="img-avatar" class="img-thumbnail">
+          </a>
+        </div>
+      </div>
+    {% endblock %}
+ 
+
+
+    {% block content %}
+
       <div class="text-center">
-        <h1>{{ lilguy.name }}'s grand adventure</h1>      
+        <h1>{{ lilguy.name }}'s adventure</h1>
       </div>
 
       {% for chapter in chapters %}
@@ -98,24 +60,6 @@
               </form>
           </div>
       </div>
-    </div>
-    
-    <footer class="footer">
-      <a name="about"></a>
-      <div class="container">
-        <br>
-        <p>this is an art project this is a drill</p>
-      </div>
-    </footer>
-    
-    
-    
-    <!-- Bootstrap core JavaScript
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
-    <!-- Seriously, Windows? u_u -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
-</html>
+ 
+      {% endblock %}
+ 
