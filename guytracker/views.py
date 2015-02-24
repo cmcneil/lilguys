@@ -10,17 +10,19 @@ def all_guys(request):
     Give a list of all guys.
     """
     lilguys = Lilguy.objects.all()
-    lilguys_to_url_code = {}
+    lilguy_url_code_to_name = {}
     for guy in lilguys:
-        lilguys_to_url_code[guy.id] = ut.lilguy_id_to_urlsafe_code(guy.id)
+        lilguy_url_code_to_name[ut.lilguy_id_to_urlsafe_code(guy.id)] = guy.name
     return render_to_response('all_guys.html', 
-                              {'lilguys': lilguys,
-                               'lilguys_to_url_code': lilguys_to_url_code})
+                              {'lilguy_url_code_to_name': lilguy_url_code_to_name})
 
 def display_guy(request, url_code):
     """ Returns an HttpResponse for an individual lilguy's information \
         and chapters page. """
-    
+    # If the param is empty, send them the all_guys page instead.
+    if not url_code:
+        return all_guys(request)
+
     id = ut.urlsafe_code_to_lilguy_id(url_code)
     # finds all Chapters about lilguy_name
     chapters = (Chapter.objects.select_related()

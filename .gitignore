@@ -19,3 +19,4 @@ tramp
 # vim backup files
 *.swp
 *.swo
+*.swn
