@@ -14,7 +14,8 @@ def all_guys(request):
     for guy in lilguys:
         lilguy_url_code_to_name[ut.lilguy_id_to_urlsafe_code(guy.id)] = guy.name
     return render_to_response('all_guys.html', 
-                              {'lilguy_url_code_to_name': lilguy_url_code_to_name})
+                              {'lilguy_url_code_to_name': lilguy_url_code_to_name},
+                              context_instance=RequestContext(request))
 
 def display_guy(request, url_code):
     """ Returns an HttpResponse for an individual lilguy's information \
@@ -51,4 +52,4 @@ def display_guy(request, url_code):
                                'url_code': url_code,
                                'chapters': chapters,
                                'chapter_form': chapter_form},
-                              context_instance=RequestContext(request))
+                               context_instance=RequestContext(request))
