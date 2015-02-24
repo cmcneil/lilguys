@@ -1,5 +1,5 @@
 #from dajaxice.core import dajaxice_autodiscover, dajaxice_config
-import dajaxice.core as dja
+#import dajaxice.core as dja
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 
@@ -7,8 +7,11 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
 
+import sys
+sys.path.append('/usr/local/lib/python2.7/site-packages')
+import dajaxice.core as dja
 from inspect import getmembers
-print getmembers(dja)
+#print getmembers(dja)
 
 urlpatterns = patterns('',
     # This will match any url of the form /lilguys/lilguy_name, where
