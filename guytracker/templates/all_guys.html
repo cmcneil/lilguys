@@ -1,0 +1,5 @@
+<ul>
+    {% for lilguy in lilguys %}
+    <li><a href="{{ lilguys_to_url_code[lilguy.id] }}">{{ lilguy.name }}</a></li>
+    {% endfor %}
+</ul>

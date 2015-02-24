@@ -4,6 +4,19 @@ from django.template import RequestContext
 from guytracker.forms import ChapterForm
 from guytracker.models import Lilguy, Chapter
 import guytracker.utils as ut
+
+def all_guys(request):
+    """
+    Give a list of all guys.
+    """
+    lilguys = Lilguy.objects.all()
+    lilguys_to_url_code = {}
+    for guy in lilguys:
+        lilguys_to_url_code[guy.id] = ut.lilguy_id_to_urlsafe_code(guy.id)
+    return render_to_response('all_guys.html', 
+                              {'lilguys': lilguys,
+                               'lilguys_to_url_code': lilguys_to_url_code})
+
 def display_guy(request, url_code):
     """ Returns an HttpResponse for an individual lilguy's information \
         and chapters page. """

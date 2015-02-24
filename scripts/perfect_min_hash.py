@@ -8,8 +8,8 @@ import pickle
 import random
 import sys
 
-sys.path.append("../littleguys")
-from settings import SECRET_KEY
+from littleguys.settings import SECRET_KEY
+#from settings import SECRET_KEY
 
 # Where server side hash seeds etc. are stored.
 CRYPT_DATA_ROOT = '/srv/media/lilguys_crypt_data'

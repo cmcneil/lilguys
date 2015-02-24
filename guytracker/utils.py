@@ -1,8 +1,7 @@
 import pickle
 import sys
 
-sys.path.append("../scripts")
-import perfect_min_hash as pmh
+import scripts.perfect_min_hash as pmh
 
 # We add this number to the hash to make sure that all codes are at least 3 characters
 # (that aren't 0) because that's visually appealing. I know it's a bit odd.
