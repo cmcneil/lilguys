@@ -1,5 +1,10 @@
 <ul>
+    {% for k, v in lilguys_to_url_code.items %}
+        Key: {{ k }} is {{ v }}
+    {% endfor %}
     {% for lilguy in lilguys %}
-    <li><a href="{{ lilguys_to_url_code[lilguy.id] }}">{{ lilguy.name }}</a></li>
+        {% with key=lilguy.id %}
+           <li><a href="/lilguys/{{ lilguys_to_url_code.key }}">{{ lilguy.name }}</a></li>
+        {% endwith %}
     {% endfor %}
 </ul>
