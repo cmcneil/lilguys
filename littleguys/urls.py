@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     # lilguy_name is the name of a lilguy (matches any non / character).
     # This page will display all information about a guy.
     url(r'^lilguys/(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
-    url(r'^lilguys*', 'guytracker.views.all_guys'),
+    url(r'^lilguys/?$', 'guytracker.views.all_guys'),
     # Examples:
     # url(r'^$', 'littleguys.views.home', name='home'),
     # url(r'^littleguys/', include('littleguys.foo.urls')),

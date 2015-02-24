@@ -19,6 +19,7 @@ def all_guys(request):
 def display_guy(request, url_code):
     """ Returns an HttpResponse for an individual lilguy's information \
         and chapters page. """
+    print url_code + "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     # If the param is empty, send them the all_guys page instead.
     if not url_code:
         return all_guys(request)

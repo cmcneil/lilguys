@@ -1,5 +1,21 @@
-<ul>
+{% extends "base.html" %}
+
+{% block title %}lil guys all over the place{% endblock %}
+
+{% block map %}
+  <iframe
+    width="100%"
+    height="500px"
+    frameborder="0" style="border:0"
+    src=" https://www.google.com/maps/embed/v1/place?key=AIzaSyAMi4n47QH6dNiVtxHe0tpV5RZZup6fLY8&q={{ lilguy.current_lat }},{{ lilguy.current_lon }}">
+  </iframe>
+{% endblock %}
+
+
+{% block content %}
+  <ul>
     {% for code, name in lilguy_url_code_to_name.items %}
-        <li><a href="/lilguys/{{ code }}">{{ name }}</a></li>
+      <li><a href="/lilguys/{{ code }}">{{ name }}</a></li>
     {% endfor %}
-</ul>
+  </ul>
+{% endblock %}
