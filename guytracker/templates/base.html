@@ -1,3 +1,5 @@
+{% load dajaxice_templatetags %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +16,8 @@
 
     <!-- <link rel="stylesheet" href="/bootstrap_custom.css"> -->
     <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap_custom.css">
-
+    
+    {% dajaxice_js_import %}
   </head>
 
   <body>
