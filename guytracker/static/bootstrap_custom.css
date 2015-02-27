@@ -87,7 +87,7 @@ h4 {
 .add-chapter > .form-group > textarea, .expand > input {
   width: 100%;
 }
-.add-chapter > .form-group > label {
+.form-group > label, .panel-body > label {
   font-weight: normal;
 }
 .input-block > input {

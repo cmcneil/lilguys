@@ -63,9 +63,10 @@
         <div class="panel panel-default" id="panel-add-chapter">
 
           <div class="panel-body">
-              <label for="code_input">lil guy code</label>
-              <br>
-              <input type="text" id="code_input" />            
+              <div class="form-group">
+                <label for="code_input">lil guy code</label>
+                <br><input type="text" id="code_input" />       
+              </div>
               
               <form class="add-chapter" enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
                 {% csrf_token %}
@@ -94,7 +95,7 @@
                 </div>
 
 
-                  <input class="btn btn-default" type="submit" value="Add story!"></input>
+                  <input class="btn btn-default pull-right" type="submit" value="Add story!"></input>
               </form>
             
           </div>
