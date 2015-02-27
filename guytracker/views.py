@@ -41,11 +41,15 @@ def display_guy(request, url_code):
     if request.method == 'GET':
         chapter_form = ChapterForm()
     elif request.method == 'POST':
+        if request.session.get('has_made_chapter_'+url_code, False):
+            # TODO(carson): Fail more gracefully here. Polite message in the template.
+            return render_to_response('error.html')
         chapter_form = ChapterForm(request.POST, request.FILES)
         if chapter_form.is_valid():
             new_chapter = chapter_form.save(commit=False)
             new_chapter.lilguy = lilguy
             new_chapter.save()
+            request.session['has_made_chapter_'+url_code] = True
             return HttpResponseRedirect("/lilguys/" + url_code)
     
     return render_to_response('display_guy.html',

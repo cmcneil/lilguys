@@ -15,9 +15,14 @@ function auth_code_entered_handler() {
 function code_validation_callback(data) {
     $('#id_code').val($('#code_input').val());
     if (data.status === 'VALID') {
-        alert('VALID!!');
+        alert('VALID');
         // Unhide form
-    } else {
+    } else if (data.status === 'ALREADY_WRITTEN') {
+        alert('ALREADY_WRITTEN');
+        // Politely tell the user to give other people a chance to write chapters,
+        // and if they want to contribute more, go out and find another guy!
+        // Don't unhide the form.
+    }else {
         alert('INVALID');
         // Print message saying that code is invalid(lil red text underneath field?).
     }
