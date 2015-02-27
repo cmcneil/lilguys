@@ -20,12 +20,13 @@ def all_guys(request):
 def display_guy(request, url_code):
     """ Returns an HttpResponse for an individual lilguy's information \
         and chapters page. """
-    print url_code + "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     # If the param is empty, send them the all_guys page instead.
     if not url_code:
         return all_guys(request)
 
     id = ut.urlsafe_code_to_lilguy_id(url_code)
+    secret_code = ut.lilguy_id_to_activation_code(id)
+    print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
     # finds all Chapters about lilguy_name
     chapters = (Chapter.objects.select_related()
                 .filter(lilguy__id=id)

@@ -39,7 +39,8 @@ def generate_min_hash(n, filename, inv_filename, id=''):
         inv_map[codomain[i]] = i
     pickle.dump(inv_map, open(inv_filename, "wb"))
 
-generate_min_hash(N_CODOMAIN, CODE_PMH_PATH, CODE_PMH_INV_PATH, 'code')
-generate_min_hash(N_CODOMAIN, URL_PMH_PATH, URL_PMH_INV_PATH, 'url')
+if __name__ == "__main__":
+    generate_min_hash(N_CODOMAIN, CODE_PMH_PATH, CODE_PMH_INV_PATH, 'code')
+    generate_min_hash(N_CODOMAIN, URL_PMH_PATH, URL_PMH_INV_PATH, 'url')
 
 
