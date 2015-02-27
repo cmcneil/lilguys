@@ -51,6 +51,7 @@
       {% endfor %}
 
       <div class="panel panel-default">
+          <input type="text" id="code-input" oninput="Dajaxice.guytracker.auth_lilguy_code(code_validation_callback)"/>
           <div class="panel-heading">Add a new chapter!</div>
           <div class="panel-body">
               <form enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
@@ -62,4 +63,7 @@
       </div>
  
       {% endblock %}
- 
+        
+      {% block javascript %}
+      <script src="{{ STATIC_URL }}add_story.js" />
+      {% endblock %} 
