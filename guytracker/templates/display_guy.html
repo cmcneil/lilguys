@@ -29,6 +29,9 @@
       <div class="text-center">
         <h1>{{ lilguy.name }}'s adventure</h1>
       </div>
+      <!-- Hidden field stores lilguy's url_code for auth against entered code. 
+           Think of it as the 'username' to the password that the user enters. -->
+      <input id="url_code" type="hidden" value="{{ url_code }}"/>
 
       {% for chapter in chapters %}
       <div class="panel panel-default">
@@ -51,7 +54,7 @@
       {% endfor %}
 
       <div class="panel panel-default">
-          <input type="text" id="code-input" oninput="Dajaxice.guytracker.auth_lilguy_code(code_validation_callback)"/>
+          <input type="text" id="code_input" />
           <div class="panel-heading">Add a new chapter!</div>
           <div class="panel-body">
               <form enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
@@ -65,5 +68,5 @@
       {% endblock %}
         
       {% block javascript %}
-      <script src="{{ STATIC_URL }}add_story.js" />
+      <script src="{{ STATIC_URL }}add_story.js" ></script>
       {% endblock %} 
