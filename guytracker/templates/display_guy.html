@@ -30,22 +30,16 @@
       <div class="text-center">
         <h1>{{ lilguy.name }}'s adventure</h1>
       </div>
-      <!-- Hidden field stores lilguy's url_code for auth against entered code. 
-           Think of it as the 'username' to the password that the user enters. -->
-      <input id="url_code" type="hidden" value="{{ url_code }}"/>
 
       <div class="container">
         {% for chapter in chapters %}
+        <div class="chapter">
           <div class="panel panel-default">
             
-            <div class="adventure-pic-wrap">
-              <img class="img-responsive" src="{{ chapter.picture.url }}">
-              <div class="adventure-title">
-                <h3>{{ chapter.title }}</h3>
-              </div>
-            </div>
-
+            <img class="img-responsive" src="{{ chapter.picture.url }}">
+            
             <div class="panel-body">
+              <h3>{{ chapter.title }}</h3>    
               <p>{{ chapter.story_text }}</p>
             </div>
 
@@ -55,20 +49,26 @@
 
             </ul>
           </div>
+        </div>
         {% endfor %}
 
-
-        <h4>Add a new chapter</h4>
 
         <div class="panel panel-default" id="panel-add-chapter">
 
           <div class="panel-body">
-              <div class="form-group">
-                <label for="code_input">lil guy code</label>
-                <br><input type="text" id="code_input" />       
+              <!-- Hidden field stores lilguy's url_code for auth against entered code.
+                   Think of it as the 'username' to the password that the user enters. -->
+              <input id="url_code" type="hidden" value="{{ url_code }}"/>
+
+              <div id="panel-code-input" class="form-group">
+                <label for="code_input">I found this little guy.</label>
+                <br><input type="text" id="code_input" />
+                <div id="checking-code">
+                  <span class="glyphicon glyphicon-refresh"></span>
+                </div>
               </div>
               
-              <form class="add-chapter" enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
+              <form id="add-chapter" enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
                 {% csrf_token %}
 
                 <div class="form-group expand">
@@ -94,8 +94,7 @@
                   {{ chapter_form.email }}
                 </div>
 
-
-                  <input class="btn btn-default pull-right" type="submit" value="Add story!"></input>
+                <input class="btn btn-default pull-right" type="submit" value="Add story!"></input>
               </form>
             
           </div>
@@ -105,5 +104,5 @@
 
 
     {% block javascript %}
-      <script src="{{ STATIC_URL }}add_story.js"></script>
+      <script src="{{ STATIC_URL }}add_chapter.js"></script>
     {% endblock %} 

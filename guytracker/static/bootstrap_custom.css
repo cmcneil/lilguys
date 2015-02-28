@@ -1,13 +1,11 @@
-/* custom css for header */
-body {
-/*  min-height: 2000px; */
-}
-
+/* navigation */
 .navbar-static-top {
   margin-bottom: 19px;
 }
-
-/* custom css for footer, temporarily here */
+.navbar-brand {
+  margin-right: 10px;
+}
+/* footer */
 html {
   position: relative;
   min-height: 100%;
@@ -74,17 +72,13 @@ h1{
   background-position: left top;
 }
 
-/* container unformatting */
-.container {
-  padding: 0;
-}
 
-h4 {
-  margin-top: 100px;
+.chapter {
+  margin-bottom: 100px;
 }
 
 /* forms */
-.add-chapter > .form-group > textarea, .expand > input {
+#add-chapter > .form-group > textarea, .expand > input {
   width: 100%;
 }
 .form-group > label, .panel-body > label {
@@ -95,4 +89,17 @@ h4 {
 }
 #panel-add-chapter {
   margin-bottom: 100px;
+}
+#add-chapter {
+  display: none;
+}
+input[type="text"] {
+  border: 1px solid #a9a9a9;
+}
+#checking-code {
+  display: inline-block;
+  visibility: hidden;
+}
+#code_input[type="text"] {
+  text-transform: uppercase;
 }
