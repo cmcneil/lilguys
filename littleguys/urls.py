@@ -18,15 +18,16 @@ urlpatterns = patterns('',
     # lilguy_name is the name of a lilguy (matches any non / character).
     # This page will display all information about a guy.
     url(r'^$', 'guytracker.views.all_guys'),
-    url(r'^(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
+    # AJAX endpoints here
+    url(r'^dajaxice/', include('dajaxice.urls')),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
+    url(r'^g/(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
     # Examples:
     # url(r'^$', 'littleguys.views.home', name='home'),
     # url(r'^littleguys/', include('littleguys.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    # AJAX endpoints here
-    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 
