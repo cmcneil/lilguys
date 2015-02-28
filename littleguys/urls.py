@@ -6,6 +6,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
+dajaxice_autodiscover()
 
 #import sys
 #sys.path.append('/usr/local/lib/python2.7/site-packages')
