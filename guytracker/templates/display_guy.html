@@ -26,6 +26,7 @@
 
     {% block content %}
 
+
       <div class="text-center">
         <h1>{{ lilguy.name }}'s adventure</h1>
       </div>
@@ -33,40 +34,76 @@
            Think of it as the 'username' to the password that the user enters. -->
       <input id="url_code" type="hidden" value="{{ url_code }}"/>
 
-      {% for chapter in chapters %}
-      <div class="panel panel-default">
-          <div class="adventure-pic-wrap">
-            <img class="img-responsive" src="{{ chapter.picture.url }}">
-            <div class="adventure-title">
-              <h3>{{ chapter.title }}</h3>
+      <div class="container">
+        {% for chapter in chapters %}
+          <div class="panel panel-default">
+            
+            <div class="adventure-pic-wrap">
+              <img class="img-responsive" src="{{ chapter.picture.url }}">
+              <div class="adventure-title">
+                <h3>{{ chapter.title }}</h3>
+              </div>
             </div>
+
+            <div class="panel-body">
+              <p>{{ chapter.story_text }}</p>
+            </div>
+
+            <ul class="list-group">
+              <li class="list-group-item">Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}}) | {{ chapter.timestamp }} 
+              </li>
+
+            </ul>
           </div>
+        {% endfor %}
 
-        <div class="panel-body">
-          <p>{{ chapter.story_text }}</p>
-        </div>
-        <ul class="list-group">
-          <li class="list-group-item">Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}}) | {{ chapter.timestamp }} 
-          </li>
 
-        </ul>
-      </div>
-      {% endfor %}
+        <h4>Add a new chapter</h4>
 
-      <div class="panel panel-default">
-          <input type="text" id="code_input" />
-          <div class="panel-heading">Add a new chapter!</div>
+        <div class="panel panel-default" id="panel-add-chapter">
+
           <div class="panel-body">
-              <form enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
-                  {% csrf_token %} 
-                  {{ chapter_form.as_ul }}
-                  <input type="submit" value="Submit" />
+              <div class="form-group">
+                <label for="code_input">lil guy code</label>
+                <br><input type="text" id="code_input" />       
+              </div>
+              
+              <form class="add-chapter" enctype="multipart/form-data" action="/lilguys/{{ url_code }}/" method="post">
+                {% csrf_token %}
+
+                <div class="form-group expand">
+                  <label for="id_title">title</label>
+                  {{ chapter_form.title }}
+                </div>
+                <div class="form-group">  
+                  <label for="id_title">story</label>
+                  {{ chapter_form.story_text }}
+                </div>
+                <div class="form-group">  
+                  <label for="id_title">found at (longitude, latitude)</label>
+                  <br>
+                  {{ chapter_form.found_at_lat}}, 
+                  {{ chapter_form.found_at_lon }}
+                </div>
+                <div class="form-group">  
+                  <label for="id_title">add photo</label>
+                  {{ chapter_form.picture }}
+                </div>
+                <div class="form-group input-block">  
+                  <label for="id_title">email (for adventure updates!)</label>
+                  {{ chapter_form.email }}
+                </div>
+
+
+                  <input class="btn btn-default pull-right" type="submit" value="Add story!"></input>
               </form>
+            
           </div>
-      </div>
- 
-      {% endblock %}
-        
-      {% block javascript %}
-      <script src="{{ STATIC_URL }}add_story.js" ></script>
-      {% endblock %} 
+        </div>
+      </div> 
+    {% endblock %}
+
+
+    {% block javascript %}
+      <script src="{{ STATIC_URL }}add_story.js"></script>
+    {% endblock %} 

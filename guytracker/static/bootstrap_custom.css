@@ -74,3 +74,25 @@ h1{
   background-position: left top;
 }
 
+/* container unformatting */
+.container {
+  padding: 0;
+}
+
+h4 {
+  margin-top: 100px;
+}
+
+/* forms */
+.add-chapter > .form-group > textarea, .expand > input {
+  width: 100%;
+}
+.form-group > label, .panel-body > label {
+  font-weight: normal;
+}
+.input-block > input {
+  display: block;
+}
+#panel-add-chapter {
+  margin-bottom: 100px;
+}
