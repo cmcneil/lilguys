@@ -124,6 +124,9 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize_map);
     </script>
-
-      <script src="{{ STATIC_URL }}add_chapter.js"></script>
+    <script src="{{ STATIC_URL }}add_chapter.js"></script>
+    <script src="{{ STATIC_URL  }}maps_location_widget.js"></script>
+    <script>
+        create_location_maps_widget('id_map', 'id_found_at_lat', 'id_found_at_lon');
+    </script>
     {% endblock %} 
