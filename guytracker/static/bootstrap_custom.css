@@ -103,7 +103,11 @@ input[type="text"] {
 #code_input[type="text"] {
   text-transform: uppercase;
 }
-#id_map {
+#id_map_wrap {
   height: 300px;
+  width: 100%;
+}
+#id_map {
+  height: 100%;
   width: 100%;
 }
