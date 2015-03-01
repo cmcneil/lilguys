@@ -104,5 +104,25 @@
 
 
     {% block javascript %}
+    <script>
+        function initialize_map() {
+            var mapOptions = {
+                center: { lat: -34.397, lng: 150.644},
+                zoom: 8
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            // Mark the lilguy's last location.
+            var last_location = new google.maps.Marker({
+                position: { lat: {{ lilguy.current_lat }},
+                            lng: {{ lilguy.current_lon}}
+                          },
+                map: map,
+                title: "{{ lilguy.name }} was last seen here!"
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize_map);
+    </script>
+
       <script src="{{ STATIC_URL }}add_chapter.js"></script>
     {% endblock %} 
