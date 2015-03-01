@@ -41,11 +41,14 @@ def display_guy(request, url_code):
     if request.method == 'GET':
         chapter_form = ChapterForm()
     elif request.method == 'POST':
+        print "posting!"
         if request.session.get('has_made_chapter_'+url_code, False):
             # TODO(carson): Fail more gracefully here. Polite message in the template.
             return render_to_response('error.html')
         chapter_form = ChapterForm(request.POST, request.FILES)
+        print chapter_form
         if chapter_form.is_valid():
+            print "the form is valid!"
             new_chapter = chapter_form.save(commit=False)
             new_chapter.lilguy = lilguy
             new_chapter.save()

@@ -36,15 +36,15 @@ class Chapter(models.Model):
     # The latitude at which the guy was found
     found_at_lat = models.FloatField()
     # The longitude that the person plans to drop the guy near.
-    dropped_at_lon = models.FloatField()
+    dropped_at_lon = models.FloatField(null=True, blank=True)
     # The latitude that the person plans to drop the guy near.
-    dropped_at_lat = models.FloatField()
+    dropped_at_lat = models.FloatField(null=True, blank=True)
     # The author can include a picture of the guy.
-    picture = models.ImageField(upload_to='adventures', max_length=200)
+    picture = models.ImageField(upload_to='adventures', max_length=200, null=True, blank=True)
     # Timestamp
     timestamp = models.DateTimeField(auto_now_add=True)
     # Submiter's email(if subscribed)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, null=True, blank=True)
 
     def __unicode__(self):
         return ("Chapter(title=" + self.title + 
