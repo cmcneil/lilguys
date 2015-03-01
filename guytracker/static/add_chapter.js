@@ -4,7 +4,7 @@ jQuery(document).ready( function() {
 
 function auth_code_entered_handler() {
     var url_code = $('#url_code').val();
-    var auth_code = $(this).val();
+    var auth_code = $(this).val().toUpperCase();
     if (auth_code.length < 3) {
         input_color_to('transparent');
     }else {

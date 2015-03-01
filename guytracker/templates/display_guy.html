@@ -71,21 +71,25 @@
                   {{ chapter_form.title }}
                 </div>
                 <div class="form-group">  
-                  <label for="id_title">story</label>
+                  <label for="id_story">story</label>
                   {{ chapter_form.story_text }}
                 </div>
+                <div class="form-group">
+                  <label for="id_map">where did you find me?</label>
+                  <div id="id_map"></div>
+                </div>
                 <div class="form-group">  
-                  <label for="id_title">found at (longitude, latitude)</label>
+                  <label for="id_found_at_lat">found at (longitude, latitude)</label>
                   <br>
                   {{ chapter_form.found_at_lat}}, 
                   {{ chapter_form.found_at_lon }}
                 </div>
                 <div class="form-group">  
-                  <label for="id_title">add photo</label>
+                  <label for="id_picture">add photo</label>
                   {{ chapter_form.picture }}
                 </div>
                 <div class="form-group input-block">  
-                  <label for="id_title">email (for adventure updates!)</label>
+                  <label for="id_email">email (for adventure updates!)</label>
                   {{ chapter_form.email }}
                 </div>
 
