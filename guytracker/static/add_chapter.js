@@ -28,6 +28,7 @@ function code_validation_callback(data) {
                 scrollTop: ($('#panel-add-chapter').offset().top)
             }, 500);
         });
+        create_location_maps_widget('id_map', 'id_found_at_lat', 'id_found_at_lon');
     } else if (data.status === 'ALREADY_WRITTEN') {
         alert('ALREADY_WRITTEN');
         // Politely tell the user to give other people a chance to write chapters,

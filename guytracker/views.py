@@ -35,8 +35,8 @@ def display_guy(request, url_code):
     lilguy = None
     if len(chapters) > 0:
         lilguy = chapters[0].lilguy
-    else:
-        return render_to_response('error.html')
+    #else:
+    #    return render_to_response('error.html')
 
     if request.method == 'GET':
         chapter_form = ChapterForm()
