@@ -22,7 +22,7 @@ function initialize() {
 {% block content %}
   <ul>
     {% for code, name in lilguy_url_code_to_name.items %}
-      <li><a href="/lilguys/{{ code }}">{{ name }}</a></li>
+      <li><a href="/lilguys/g/{{ code }}">{{ name }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}
