@@ -65,7 +65,7 @@
               
               <form id="add-chapter" enctype="multipart/form-data" action="/lilguys/g/{{ url_code }}/" method="post">
                 {% csrf_token %}
-
+                {{ chapter_form.code }}
                 <div class="form-group expand">
                   <label for="id_title">title</label>
                   {{ chapter_form.title }}

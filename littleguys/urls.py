@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url(r'^g/(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
     # Examples:
+    url(r'^lilguys/g/(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
     # url(r'^$', 'littleguys.views.home', name='home'),
     # url(r'^littleguys/', include('littleguys.foo.urls')),
 
