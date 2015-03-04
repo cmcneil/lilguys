@@ -28,7 +28,7 @@ class Chapter(models.Model):
     # The Lilguy that this chapter is about.
     lilguy = models.ForeignKey(Lilguy)
     # The (optional) title of the story. We default to a date?
-    title = models.CharField(max_length=80)
+    title = models.CharField(max_length=80, null=True, blank=True)
     # The story text.
     story_text = models.TextField()
     # The longitude at which the guy was found.
