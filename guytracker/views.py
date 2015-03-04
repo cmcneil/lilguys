@@ -13,6 +13,7 @@ def all_guys(request):
     lilguy_url_code_to_name = {}
     for guy in lilguys:
         lilguy_url_code_to_name[ut.lilguy_id_to_urlsafe_code(guy.id)] = guy.name
+        print "guy: " + guy.name + "url: " + ut.lilguy_id_to_urlsafe_code(guy.id) + ", code: " + ut.lilguy_id_to_activation_code(guy.id)
     return render_to_response('all_guys.html', 
                               {'lilguy_url_code_to_name': lilguy_url_code_to_name},
                               context_instance=RequestContext(request))
