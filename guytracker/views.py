@@ -27,17 +27,19 @@ def display_guy(request, url_code):
 
     id = ut.urlsafe_code_to_lilguy_id(url_code)
     secret_code = ut.lilguy_id_to_activation_code(id)
+
     print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
+    lilguy = Lilguy.objects.get(id=id)    
     # finds all Chapters about lilguy_name
     chapters = (Chapter.objects.select_related()
-                .filter(lilguy__id=id)
+                .filter(lilguy=lilguy)
                 .order_by('timestamp'))
 
-    lilguy = None
-    if len(chapters) > 0:
-        lilguy = chapters[0].lilguy
-    else:
-        return render_to_response('error.html')
+    #lilguy = None
+    #if len(chapters) > 0:
+    #    lilguy = chapters[0].lilguy
+    #else:
+    #    return render_to_response('error.html')
 
     if request.method == 'GET':
         chapter_form = ChapterForm()
@@ -48,14 +50,19 @@ def display_guy(request, url_code):
             return render_to_response('error.html')
         chapter_form = ChapterForm(request.POST, request.FILES)
         print chapter_form
+        if chapter_form.cleaned_data['id_code'] != secret_code:
+            # TODO(carson): Fail less politely with a NO PLZ STOP.
+            # This cannot happen unless they are trying to hack us.
+            return render_to_response('error.html')
         if chapter_form.is_valid():
             print "the form is valid!"
             new_chapter = chapter_form.save(commit=False)
             new_chapter.lilguy = lilguy
             new_chapter.save()
             request.session['has_made_chapter_'+url_code] = True
-            return HttpResponseRedirect("/lilguys/" + url_code)
-    
+            return HttpResponseRedirect("/lilguys/" + "g/" + url_code)
+        else:
+            print "form errors: " + str(chapter_form.errors)
     return render_to_response('display_guy.html',
                               {'lilguy': lilguy, 
                                'url_code': url_code,
