@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from guytracker.forms import ChapterForm
+import guytracker.messages as msg
 from guytracker.models import Lilguy, Chapter
 import guytracker.utils as ut
 
@@ -47,13 +48,19 @@ def display_guy(request, url_code):
         print "posting!"
         if request.session.get('has_made_chapter_'+url_code, False):
             # TODO(carson): Fail more gracefully here. Polite message in the template.
-            return render_to_response('error.html')
+            return render_to_response('error.html', 
+                                      {'error_code': '403',
+                                       'error_explanation': msg.ALREADY_WRITTEN_EXPL},
+                                       context_instance=RequestContext(request))
         chapter_form = ChapterForm(request.POST, request.FILES)
         print chapter_form
         if chapter_form.cleaned_data['id_code'] != secret_code:
             # TODO(carson): Fail less politely with a NO PLZ STOP.
             # This cannot happen unless they are trying to hack us.
-            return render_to_response('error.html')
+            return render_to_response('error.html',
+                                      {'error_code': '401',
+                                       'error_explanation': msg.ERR_WRONG_CODE_EXPL},
+                                       context_instance=RequestContext(request))
         if chapter_form.is_valid():
             print "the form is valid!"
             new_chapter = chapter_form.save(commit=False)
