@@ -18,7 +18,7 @@ function auth_code_entered_handler() {
 }
 
 function code_validation_callback(data) {
-    $('#id_code').val($('#code_input').val());
+    $('#id_code').val($('#code_input').val().toUpperCase());
     if (data.status === 'VALID') {
         input_color_to('transparent');
  

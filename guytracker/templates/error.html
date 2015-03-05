@@ -6,7 +6,8 @@
     {% endblock %}
 
     {% block content %}
+    <h1>Error {{ error_code }}</h1>
     You've hit an error! Hit the lilguys button in the header to go back to the main site.
     We don't necessarily know what went wrong, but here's our best guess at what it was and how to fix it:
-    <i>{{ error_explanation }}</i>
-    {% end block %}
+    </br></br><i>{{ error_explanation }}</i>
+    {% endblock %}

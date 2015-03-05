@@ -30,11 +30,14 @@
         {% for chapter in chapters %}
         <div class="chapter">
           <div class="panel panel-default">
-            
+            {% if chapter.picture %}
             <img class="img-responsive" src="{{ chapter.picture.url }}">
+            {% endif %}
             
             <div class="panel-body">
-              <h3>{{ chapter.title }}</h3>    
+              {% if chapter.title %}
+              <h3>{{ chapter.title }}</h3>
+              {% endif %}
               <p>{{ chapter.story_text }}</p>
             </div>
 
@@ -56,7 +59,7 @@
               <input id="url_code" type="hidden" value="{{ url_code }}"/>
 
               <div id="panel-code-input" class="form-group">
-                <label for="code_input">I found this little guy.</label>
+                  <label for="code_input">I found this little guy. <i>(look at my belly!)</i></label>
                 <br><input type="text" id="code_input" />
                 <div id="checking-code">
                   <span class="glyphicon glyphicon-refresh"></span>
@@ -76,7 +79,7 @@
                 </div>
 
                 <div class="form-group">  
-                  <label for="id_found_at_lat">where did you find me?</label>
+                    <label for="id_found_at_lat">where did you find me? <i>(click map)</i></label>
                   <br>
                   {{ chapter_form.found_at_lat}}, 
                   {{ chapter_form.found_at_lon }}
@@ -114,15 +117,24 @@
                 zoom: 15
             };
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+            // Make an array of everywhere the lilguys has been.
+            var journey_str = '{{ journey_coords|safe }}';
+            //var journey = journey_str.replace(/"(\w+)"\s*:/g, '$1:');
+            var journey = $.parseJSON(journey_str);
+            console.log(journey);
+            var journey_markers = [];
+            for (coord in journey) {
+                journey_markers.push(new google.maps.Marker({position: coord, map:map}));
+            }
             // Mark the lilguy's last location.
+            /*
             var last_location = new google.maps.Marker({
                 position: { lat: {{ lilguy.current_lat }},
                             lng: {{ lilguy.current_lon}}
                           },
                 map: map,
                 title: "{{ lilguy.name }} was last seen here!"
-            });
+            }); */
         }
         google.maps.event.addDomListener(window, 'load', initialize_map);
     </script>

@@ -5,6 +5,7 @@ from guytracker.forms import ChapterForm
 import guytracker.messages as msg
 from guytracker.models import Lilguy, Chapter
 import guytracker.utils as ut
+import json
 
 def all_guys(request):
     """
@@ -50,11 +51,12 @@ def display_guy(request, url_code):
             # TODO(carson): Fail more gracefully here. Polite message in the template.
             return render_to_response('error.html', 
                                       {'error_code': '403',
-                                       'error_explanation': msg.ALREADY_WRITTEN_EXPL},
+                                       'error_explanation': 
+                                         msg.ERR_ALREADY_WRITTEN_EXPL},
                                        context_instance=RequestContext(request))
         chapter_form = ChapterForm(request.POST, request.FILES)
         print chapter_form
-        if chapter_form.cleaned_data['id_code'] != secret_code:
+        if chapter_form.cleaned_data['code'] != secret_code:
             # TODO(carson): Fail less politely with a NO PLZ STOP.
             # This cannot happen unless they are trying to hack us.
             return render_to_response('error.html',
@@ -70,9 +72,15 @@ def display_guy(request, url_code):
             return HttpResponseRedirect("/lilguys/" + "g/" + url_code)
         else:
             print "form errors: " + str(chapter_form.errors)
+
+    # Make a list of all the gps coordinates.
+    journey_coords = json.dumps(
+            map(lambda c: {'lat': c.found_at_lat, 'lng': c.found_at_lon}, chapters))
+    print 'journey_coords:' + journey_coords
     return render_to_response('display_guy.html',
                               {'lilguy': lilguy, 
                                'url_code': url_code,
                                'chapters': chapters,
+                               'journey_coords': journey_coords,
                                'chapter_form': chapter_form},
                                context_instance=RequestContext(request))
