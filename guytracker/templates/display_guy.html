@@ -117,14 +117,28 @@
                 zoom: 15
             };
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            // Make the line that will trace the guys route:
+            var polyOptions = {
+                strokeColor: '#000000',
+                srokeOpacity: 1.0,
+                strokeWeight: 3
+            };
+            var poly = new google.maps.Polyline(polyOptions);
+            poly.setMap(map);
+
             // Make an array of everywhere the lilguys has been.
-            var journey_str = '{{ journey_coords|safe }}';
-            //var journey = journey_str.replace(/"(\w+)"\s*:/g, '$1:');
-            var journey = $.parseJSON(journey_str);
-            console.log(journey);
+            var journey = {{ journey_coords|safe }};
             var journey_markers = [];
-            for (coord in journey) {
+            
+            // Draw all the placemarks
+            for (var i = 0; i < journey.length; i++) {
+                var coord = journey[i];
                 journey_markers.push(new google.maps.Marker({position: coord, map:map}));
+                var path = poly.getPath();
+                console.log(coord);
+                console.log(path);
+                path.push(coord);
             }
             // Mark the lilguy's last location.
             /*
