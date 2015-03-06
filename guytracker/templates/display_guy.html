@@ -119,8 +119,16 @@
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
             // Make the line that will trace the guys route:
+            var lineSymbol = {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+            };
             var polyOptions = {
-                strokeColor: '#000000',
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100px',
+                    repeat: '150px'
+                }],
+                strokeColor: '#3366FF',
                 srokeOpacity: 1.0,
                 strokeWeight: 3
             };
@@ -130,16 +138,21 @@
             // Make an array of everywhere the lilguys has been.
             var journey = {{ journey_coords|safe }};
             var journey_markers = [];
-            
+            var bounds = new google.maps.LatLngBounds(); //Object used to fit map to pts.
             // Draw all the placemarks
             for (var i = 0; i < journey.length; i++) {
-                var coord = journey[i];
+                var coord = new google.maps.LatLng(journey[i].lat, journey[i].lng);
                 journey_markers.push(new google.maps.Marker({position: coord, map:map}));
                 var path = poly.getPath();
+                console.log('loop iteration: ' + i.toString());
                 console.log(coord);
                 console.log(path);
                 path.push(coord);
+                bounds.extend(coord);
+                //poly.setPath(path);
             }
+            // size the map so it contains all the points:
+            map.fitBounds(bounds);
             // Mark the lilguy's last location.
             /*
             var last_location = new google.maps.Marker({
