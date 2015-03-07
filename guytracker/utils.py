@@ -1,7 +1,11 @@
+from django.core.serializers.json import Serializer
 import pickle
 import sys
 
 import scripts.perfect_min_hash as pmh
+
+
+### Activation and URL code encryption!
 
 # We add this number to the hash to make sure that all codes are at least 3 characters
 # (that aren't 0) because that's visually appealing. I know it's a bit odd.
@@ -62,3 +66,21 @@ def base36encode(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
 def base36decode(number):
     """Converts a base36 string to an integer."""
     return int(number, 36)
+
+### Django Model to JS object serialization
+
+class CleanSerializer(Serializer):
+    def __init__(self, *args, **kwargs):
+        self.excludes = kwargs.pop('excludes', [])
+        
+    def get_dump_object(self, obj):
+        print "dump CALLED! ************"
+        dump_object = self._current or {}
+        for field in self.excludes:
+            if field in dump_object.keys():
+                del dump_object[field]
+        return dump_object
+
+def lilguys_to_JS(lilguys):
+    serializer = CleanSerializer(excudes=['code'])
+    return serializer.serialize(lilguys)

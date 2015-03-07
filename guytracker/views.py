@@ -15,9 +15,14 @@ def all_guys(request):
     lilguy_url_code_to_name = {}
     for guy in lilguys:
         lilguy_url_code_to_name[ut.lilguy_id_to_urlsafe_code(guy.id)] = guy.name
-        print "guy: " + guy.name + "url: " + ut.lilguy_id_to_urlsafe_code(guy.id) + ", code: " + ut.lilguy_id_to_activation_code(guy.id)
+   
+    print ut.lilguys_to_JS(lilguys)
+    # Make a list of all the gps coordinates.
+    lilguy_coords = json.dumps(
+        map(lambda c: {'lat': c.current_lat, 'lng': c.current_lon}, lilguys))
     return render_to_response('all_guys.html', 
-                              {'lilguy_url_code_to_name': lilguy_url_code_to_name},
+                              {'lilguy_url_code_to_name': lilguy_url_code_to_name,
+                               'lilguy_coords': lilguy_coords},
                               context_instance=RequestContext(request))
 
 def display_guy(request, url_code):
@@ -37,37 +42,29 @@ def display_guy(request, url_code):
                 .filter(lilguy=lilguy)
                 .order_by('timestamp'))
 
-    #lilguy = None
-    #if len(chapters) > 0:
-    #    lilguy = chapters[0].lilguy
-    #else:
-    #    return render_to_response('error.html')
-
     if request.method == 'GET':
         chapter_form = ChapterForm()
     elif request.method == 'POST':
-        print "posting!"
         if request.session.get('has_made_chapter_'+url_code, False):
-            # TODO(carson): Fail more gracefully here. Polite message in the template.
             return render_to_response('error.html', 
                                       {'error_code': '403',
                                        'error_explanation': 
                                          msg.ERR_ALREADY_WRITTEN_EXPL},
                                        context_instance=RequestContext(request))
         chapter_form = ChapterForm(request.POST, request.FILES)
-        print chapter_form
         if chapter_form.cleaned_data['code'] != secret_code:
-            # TODO(carson): Fail less politely with a NO PLZ STOP.
-            # This cannot happen unless they are trying to hack us.
             return render_to_response('error.html',
                                       {'error_code': '401',
                                        'error_explanation': msg.ERR_WRONG_CODE_EXPL},
                                        context_instance=RequestContext(request))
         if chapter_form.is_valid():
-            print "the form is valid!"
             new_chapter = chapter_form.save(commit=False)
             new_chapter.lilguy = lilguy
             new_chapter.save()
+            # Update the guy's location in the DB
+            lilguy.current_lat = new_chapter.found_at_lat
+            lilguy.current_lon = new_chapter.found_at_lon
+            lilguy.save()
             request.session['has_made_chapter_'+url_code] = True
             return HttpResponseRedirect("/lilguys/" + "g/" + url_code)
         else:
@@ -76,7 +73,6 @@ def display_guy(request, url_code):
     # Make a list of all the gps coordinates.
     journey_coords = json.dumps(
             map(lambda c: {'lat': c.found_at_lat, 'lng': c.found_at_lon}, chapters))
-    print 'journey_coords:' + journey_coords
     return render_to_response('display_guy.html',
                               {'lilguy': lilguy, 
                                'url_code': url_code,

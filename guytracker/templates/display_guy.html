@@ -80,8 +80,7 @@
 
                 <div class="form-group">  
                     <label for="id_found_at_lat">where did you find me? <i>(click map)</i></label>
-                  <br>
-                  {{ chapter_form.found_at_lat}}, 
+                  {{ chapter_form.found_at_lat}}
                   {{ chapter_form.found_at_lon }}
                 </div>
 
@@ -144,24 +143,11 @@
                 var coord = new google.maps.LatLng(journey[i].lat, journey[i].lng);
                 journey_markers.push(new google.maps.Marker({position: coord, map:map}));
                 var path = poly.getPath();
-                console.log('loop iteration: ' + i.toString());
-                console.log(coord);
-                console.log(path);
                 path.push(coord);
                 bounds.extend(coord);
-                //poly.setPath(path);
             }
             // size the map so it contains all the points:
             map.fitBounds(bounds);
-            // Mark the lilguy's last location.
-            /*
-            var last_location = new google.maps.Marker({
-                position: { lat: {{ lilguy.current_lat }},
-                            lng: {{ lilguy.current_lon}}
-                          },
-                map: map,
-                title: "{{ lilguy.name }} was last seen here!"
-            }); */
         }
         google.maps.event.addDomListener(window, 'load', initialize_map);
     </script>

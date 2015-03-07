@@ -5,7 +5,6 @@ import sys
 
 @dajaxice_register
 def auth_lilguy_code(request, url_code, auth_code):
-    print 'url_code: ' + url_code + ', auth_code: ' + auth_code
     lilguy_id = ut.urlsafe_code_to_lilguy_id(url_code)
     actual_auth_code = ut.lilguy_id_to_activation_code(lilguy_id)
     # Check to make sure the user hasn't already written a chapter for this guy.
