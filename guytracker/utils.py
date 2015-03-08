@@ -1,4 +1,4 @@
-from django.core.serializers.json import Serializer
+from django.core.serializers.json import Serializer as JSONSerializer
 import pickle
 import sys
 
@@ -69,21 +69,18 @@ def base36decode(number):
 
 ### Django Model to JS object serialization
 
-class CleanSerializer(Serializer):
+class CleanSerializer(JSONSerializer):
+    """Allows user to exclude any number of named fields."""
     def __init__(self, *args, **kwargs):
         self.excludes = kwargs.pop('excludes', [])
         super(CleanSerializer, self).__init__()
-        
-    def get_dump_object(self, obj):
-        print "dump CALLED! ************"
-        dump_object = self._current or {}
+    
+    def end_object(self, obj):
+        data = self._current
         for field in self.excludes:
-            print "looping!"
-            if field in dump_object.keys():
-                del dump_object[field]
-        return dump_object
+            data.pop(field, None)
+        self.objects.append(data)
 
 def lilguys_to_JS(lilguys):
-    "Calling the serializer!"
-    serializer = CleanSerializer(excudes=['code'])
+    serializer = CleanSerializer(excludes = ['code', 'timestamp'])
     return serializer.serialize(lilguys)

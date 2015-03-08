@@ -16,13 +16,13 @@ def all_guys(request):
     for guy in lilguys:
         lilguy_url_code_to_name[ut.lilguy_id_to_urlsafe_code(guy.id)] = guy.name
    
-    print ut.lilguys_to_JS(lilguys)
+    lilguys_js = ut.lilguys_to_JS(lilguys)
     # Make a list of all the gps coordinates.
-    lilguy_coords = json.dumps(
-        map(lambda c: {'lat': c.current_lat, 'lng': c.current_lon}, lilguys))
+    #lilguy_coords = json.dumps(
+     #   map(lambda c: {'lat': c.current_lat, 'lng': c.current_lon}, lilguys))
     return render_to_response('all_guys.html', 
                               {'lilguy_url_code_to_name': lilguy_url_code_to_name,
-                               'lilguy_coords': lilguy_coords},
+                               'lilguys_js': lilguys_js},
                               context_instance=RequestContext(request))
 
 def display_guy(request, url_code):
@@ -80,3 +80,7 @@ def display_guy(request, url_code):
                                'journey_coords': journey_coords,
                                'chapter_form': chapter_form},
                                context_instance=RequestContext(request))
+
+def about_us(request):
+    return render_to_response('about.html',
+                              {}, context_instance=RequestContext(request))

@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^g/(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
     # Examples:
     url(r'^lilguys/g/(?P<url_code>[^/]+)/', 'guytracker.views.display_guy'),
+    url(r'^about$', 'guytracker.views.about_us'),
     # url(r'^$', 'littleguys.views.home', name='home'),
     # url(r'^littleguys/', include('littleguys.foo.urls')),
 
