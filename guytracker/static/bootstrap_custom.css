@@ -111,3 +111,23 @@ input[type="text"] {
   height: 100%;
   width: 100%;
 }
+
+/* guy grid */
+#guy-grid-container h1 {
+  font-size: 42px;
+  margin: 0;
+}
+#guy-grid-container h2 {
+  margin: 30px 0;
+  margin-bottom: 50px;
+}
+#guy-grid-container h3 {
+  text-align: center;
+  margin: 10px 0;
+}
+#guy-grid .guy-grid-box {
+  margin-bottom: 20px;
+}
+#guy-grid .col-md-3:nth-child(4n+1) {
+    clear: both;
+}
