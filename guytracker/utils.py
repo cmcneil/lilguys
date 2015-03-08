@@ -72,15 +72,18 @@ def base36decode(number):
 class CleanSerializer(Serializer):
     def __init__(self, *args, **kwargs):
         self.excludes = kwargs.pop('excludes', [])
+        super(CleanSerializer, self).__init__()
         
     def get_dump_object(self, obj):
         print "dump CALLED! ************"
         dump_object = self._current or {}
         for field in self.excludes:
+            print "looping!"
             if field in dump_object.keys():
                 del dump_object[field]
         return dump_object
 
 def lilguys_to_JS(lilguys):
+    "Calling the serializer!"
     serializer = CleanSerializer(excudes=['code'])
     return serializer.serialize(lilguys)
