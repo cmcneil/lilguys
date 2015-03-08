@@ -51,7 +51,10 @@
         {% endfor %}
 
 
-        <div class="panel panel-default" id="panel-add-chapter">
+        <div class="panel panel-default" id="panel-add-chapter"
+            {% if already_written %}
+            hidden
+            {% endif %}>
 
           <div class="panel-body">
               <!-- Hidden field stores lilguy's url_code for auth against entered code.
