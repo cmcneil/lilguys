@@ -4,4 +4,4 @@
 # Necessary because we can't put the settings.py file into git due to security reasons.
 # (The repo is public github.)
 
-cp /srv/media/projects/lilguys/littleguys/settings.py littleguys/
+cp /srv/sites/lilguys/littleguys/settings.py littleguys/

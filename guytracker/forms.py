@@ -9,4 +9,13 @@ class ChapterForm(forms.ModelForm):
         widgets = {'found_at_lat': forms.HiddenInput(),
                    'found_at_lon': forms.HiddenInput()}
     code = forms.CharField(max_length=6, widget=forms.HiddenInput())
-
+    
+    def clean_picture(self):
+        """Custom validation for the picture field"""
+        image = self.cleaned_data.get('picture', False)
+        if image:
+            if image._size > 10*1024*1024:
+                raise ValidationError("Image file too large ( > 10mb )")
+            return image
+        else:
+            raise ValidationError("Couldn't read uploaded image")

@@ -1,5 +1,9 @@
+from django.core.files import File
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.base import ContentFile
 from django.db import models
-# Create your models here.
+from PIL import Image
+import StringIO
 
 class Lilguy(models.Model):
     """ A little guy ready for adventure. """
@@ -50,6 +54,34 @@ class Chapter(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     # Submiter's email(if subscribed)
     email = models.EmailField(max_length=254, null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        """Override save to resize picture field."""
+        if self.picture:
+            EXTRA_IMAGE_SIZES = {'picture_600': (600, 900)}
+            MAX_SIZE = (1280, 1280)
+            imgFile = Image.open(StringIO.StringIO(self.picture.read()))
+            #Convert to RGB
+            if imgFile.mode not in ('L', 'RGB'):
+                imgFile = imgFile.convert('RGB')
+            for field_name, size in EXTRA_IMAGE_SIZES.iteritems():
+                field = getattr(self, field_name)
+                working = imgFile.copy()
+                working.thumbnail(size, Image.ANTIALIAS)
+                fp = StringIO.StringIO()
+                working.save(fp, format="JPEG", quality=95)
+                cf = ContentFile(fp.getvalue())
+                field.save(name=self.picture.name, content=cf, save=False)
+            imgFile.thumbnail(MAX_SIZE, Image.ANTIALIAS)
+            output = StringIO.StringIO()
+            imgFile.save(output, format="JPEG", quality=95)
+            output.seek(0)
+            print dir(self.picture)
+            print "name: " + self.picture.name
+            self.picture = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.picture.name.split('.')[0], 'image/jpeg', output.len, None)
+            # self.picture = File(output, self.picture.name)
+
+        super(Chapter, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return ("Chapter(title=" + self.title + 
