@@ -35,6 +35,7 @@ def display_guy(request, url_code):
     id = ut.urlsafe_code_to_lilguy_id(url_code)
     secret_code = ut.lilguy_id_to_activation_code(id)
     already_written = request.session.get('has_made_chapter_'+url_code, False)
+    user_entered_code = ''
     bad_form = False
     print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
     lilguy = Lilguy.objects.get(id=id)    
@@ -55,7 +56,8 @@ def display_guy(request, url_code):
         chapter_form = ChapterForm(request.POST, request.FILES)
         
         user_entered_code = request.REQUEST.get('code', None)
-        user_entered_code = user_entered_code if user_entered_code == secret_code else None
+        user_entered_code = user_entered_code if user_entered_code == secret_code else ''
+        print "User entered code! " + user_entered_code
         if chapter_form.is_valid():
             # Check to make sure that the code is legit.
             if chapter_form.cleaned_data['code'] != secret_code:
