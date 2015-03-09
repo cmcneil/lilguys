@@ -30,12 +30,14 @@ function code_validation_callback(data) {
         });
         create_location_maps_widget('id_map', 'id_found_at_lat', 'id_found_at_lon');
     } else if (data.status === 'ALREADY_WRITTEN') {
-        alert('ALREADY_WRITTEN');
+        input_color_to('#FFCCDD');
+        $('#checking-code').css({'visibility': 'hidden'});
+        alert('You have already written a chapter for this guy. Hide it and give someone else a chance!');
         // Politely tell the user to give other people a chance to write chapters,
         // and if they want to contribute more, go out and find another guy!
         // Don't unhide the form.
     }else {
-        // invalid code
+        // invalid codet 
         input_color_to('#FFCCDD');
         $('#checking-code').css({'visibility': 'hidden'});
     }

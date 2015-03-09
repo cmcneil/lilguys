@@ -50,7 +50,8 @@
         </div>
         {% endfor %}
 
-
+ 
+        {% if not already_written %}
         <div class="panel panel-default" id="panel-add-chapter">
 
           <div class="panel-body">
@@ -60,7 +61,7 @@
 
               <div id="panel-code-input" class="form-group">
                   <label for="code_input">I found this little guy. <i>(look at my belly!)</i></label>
-                <br><input type="text" id="code_input" />
+                  <br><input type="text" id="code_input" value="{{ user_entered_code }}" />
                 <div id="checking-code">
                   <span class="glyphicon glyphicon-refresh"></span>
                 </div>
@@ -72,16 +73,30 @@
                 <div class="form-group expand">
                   <label for="id_title">title</label>
                   {{ chapter_form.title }}
+                  {% if chapter_form.title.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ chapter_form.title.errors }}</div>
+                  {% endif %}
                 </div>
                 <div class="form-group">  
+                  
                   <label for="id_story">story</label>
                   {{ chapter_form.story_text }}
+                  {% if chapter_form.story_text.errors %}
+                    <div class="alert alert-danger" role="alert">
+                          {{ chapter_form.story_text.errors }}</div>
+                  {% endif %}
                 </div>
 
                 <div class="form-group">  
                     <label for="id_found_at_lat">where did you find me? <i>(click map)</i></label>
                   {{ chapter_form.found_at_lat}}
                   {{ chapter_form.found_at_lon }}
+                  {% if chapter_form.found_at_lat.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ chapter_form.found_at_lat.errors }}
+                      {{ chapter_form.found_at_lon.errors }} </div>
+                  {% endif %}
                 </div>
 
                 <div id="id_map_wrap">
@@ -91,23 +106,39 @@
                 <div class="form-group">  
                   <label for="id_picture">add photo</label>
                   {{ chapter_form.picture }}
+                  {% if chapter_form.picture.errors %}
+                    <div class="alert alert-danger" role="alert">
+                          {{ chapter_form.picture.errors }}</div>
+                  {% endif %}
                 </div>
-                <div class="form-group input-block">  
+                <div class="form-group input-block">
                   <label for="id_email">email (for adventure updates!)</label>
                   {{ chapter_form.email }}
+                  {% if chapter_form.email.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ chapter_form.email.errors }}</div>
+                  {% endif %}
                 </div>
 
                 <input class="btn btn-default pull-right" type="submit" value="Add story!"></input>
               </form>
             
           </div>
-        </div>
+      </div>
+      {% endif %}
       </div> 
     {% endblock %}
 
 
-    {% block javascript %}
+    {% block javascript %} 
+    <script src="{{ STATIC_URL  }}maps_location_widget.js"></script> 
+    <script src="{{ STATIC_URL }}add_chapter.js"></script>
     <script>
+        {% if user_entered_code %}
+            $(document).ready(function() {   
+                code_validation_callback({'status': 'VALID'}); 
+            });
+        {% endif %}
         function initialize_map() {
             var mapOptions = {
                 center: { lat: {{ lilguy.current_lat }},
@@ -151,6 +182,4 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize_map);
     </script>
-    <script src="{{ STATIC_URL  }}maps_location_widget.js"></script>
-    <script src="{{ STATIC_URL }}add_chapter.js"></script>
     {% endblock %} 

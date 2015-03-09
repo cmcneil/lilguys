@@ -34,7 +34,9 @@ def display_guy(request, url_code):
 
     id = ut.urlsafe_code_to_lilguy_id(url_code)
     secret_code = ut.lilguy_id_to_activation_code(id)
-
+    already_written = request.session.get('has_made_chapter_'+url_code, False)
+    user_entered_code = ''
+    bad_form = False
     print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
     lilguy = Lilguy.objects.get(id=id)    
     # finds all Chapters about lilguy_name
@@ -45,19 +47,24 @@ def display_guy(request, url_code):
     if request.method == 'GET':
         chapter_form = ChapterForm()
     elif request.method == 'POST':
-        if request.session.get('has_made_chapter_'+url_code, False):
+        if already_written:
             return render_to_response('error.html', 
                                       {'error_code': '403',
                                        'error_explanation': 
                                          msg.ERR_ALREADY_WRITTEN_EXPL},
                                        context_instance=RequestContext(request))
         chapter_form = ChapterForm(request.POST, request.FILES)
-        if chapter_form.cleaned_data['code'] != secret_code:
-            return render_to_response('error.html',
-                                      {'error_code': '401',
-                                       'error_explanation': msg.ERR_WRONG_CODE_EXPL},
-                                       context_instance=RequestContext(request))
+        
+        user_entered_code = request.REQUEST.get('code', None)
+        user_entered_code = user_entered_code if user_entered_code == secret_code else ''
+        print "User entered code! " + user_entered_code
         if chapter_form.is_valid():
+            # Check to make sure that the code is legit.
+            if chapter_form.cleaned_data['code'] != secret_code:
+                return render_to_response('error.html',
+                                          {'error_code': '401',
+                                           'error_explanation': msg.ERR_WRONG_CODE_EXPL},
+                                           context_instance=RequestContext(request))
             new_chapter = chapter_form.save(commit=False)
             new_chapter.lilguy = lilguy
             new_chapter.save()
@@ -68,7 +75,7 @@ def display_guy(request, url_code):
             request.session['has_made_chapter_'+url_code] = True
             return HttpResponseRedirect("/lilguys/" + "g/" + url_code)
         else:
-            print "form errors: " + str(chapter_form.errors)
+            bad_form = True
 
     # Make a list of all the gps coordinates.
     journey_coords = json.dumps(
@@ -76,6 +83,9 @@ def display_guy(request, url_code):
     return render_to_response('display_guy.html',
                               {'lilguy': lilguy, 
                                'url_code': url_code,
+                               'already_written': already_written,
+                               'bad_form': bad_form,
+                               'user_entered_code': user_entered_code,
                                'chapters': chapters,
                                'journey_coords': journey_coords,
                                'chapter_form': chapter_form},
