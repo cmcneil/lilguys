@@ -23,16 +23,18 @@
     someone else!</p>
 
     <div id="guy-grid">
-      {% for code, name in lilguy_url_code_to_name.items %}
-      <div class="col-md-3 col-sm-4 col-xs-4 guy-grid-box">
-        <a href="/lilguys/g/{{ code }}">
-          <img class="img-responsive" src="http://placehold.it/200x200" alt="">
-        </a>
-        <h3>
-          <a href="/lilguys/g/{{ code }}">{{ name }}</a>
-        </h3>
+      <div class="row">
+        {% for code, name in lilguy_url_code_to_name.items %}
+        <div class="col-md-4 col-sm-4 col-xs-4 guy-grid-box">
+          <a href="/lilguys/g/{{ code }}">
+            <img class="img-responsive" src="http://placehold.it/200x200" alt="">
+          </a>
+          <h3>
+            <a href="/lilguys/g/{{ code }}">{{ name }}</a>
+          </h3>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </div>
   
