@@ -17,13 +17,13 @@
 
     <div id="guy-grid">
       <div class="row">
-        {% for code, name in lilguy_url_code_to_name.items %}
+        {% for code, name_pic in lilguy_url_code_to_name_pic.items %}
         <div class="col-md-4 col-sm-4 col-xs-4 guy-grid-box">
           <a href="/lilguys/g/{{ code }}">
-            <img class="img-responsive" src="http://placehold.it/200x200" alt="">
+            <img class="img-responsive" src="{{ name_pic.1.url }}" alt="">
           </a>
           <h3>
-            <a href="/lilguys/g/{{ code }}">{{ name }}</a>
+            <a href="/lilguys/g/{{ code }}">{{ name_pic.0 }}</a>
           </h3>
         </div>
         {% endfor %}

@@ -12,16 +12,16 @@ def all_guys(request):
     Give a list of all guys.
     """
     lilguys = Lilguy.objects.all()
-    lilguy_url_code_to_name = {}
+    lilguy_url_code_to_name_pic = {}
     for guy in lilguys:
-        lilguy_url_code_to_name[ut.lilguy_id_to_urlsafe_code(guy.id)] = guy.name
+        lilguy_url_code_to_name_pic[ut.lilguy_id_to_urlsafe_code(guy.id)] = (guy.name, guy.pic)
    
     lilguys_js = ut.lilguys_to_JS(lilguys)
     # Make a list of all the gps coordinates.
     #lilguy_coords = json.dumps(
      #   map(lambda c: {'lat': c.current_lat, 'lng': c.current_lon}, lilguys))
     return render_to_response('all_guys.html', 
-                              {'lilguy_url_code_to_name': lilguy_url_code_to_name,
+                              {'lilguy_url_code_to_name_pic': lilguy_url_code_to_name_pic,
                                'lilguys_js': lilguys_js},
                               context_instance=RequestContext(request))
 
