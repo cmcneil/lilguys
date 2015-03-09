@@ -43,6 +43,11 @@ class Chapter(models.Model):
     dropped_at_lat = models.FloatField(null=True, blank=True)
     # The author can include a picture of the guy.
     picture = models.ImageField(upload_to='adventures', max_length=200, null=True, blank=True)
+    # Thumbs for the picture. Used on the site.
+    picture_600 = models.ImageField(upload_to='adventures/600', 
+                                    max_length=200, 
+                                    null=True, 
+                                    blank=True)
     # Timestamp
     timestamp = models.DateTimeField(auto_now_add=True)
     # Submiter's email(if subscribed)
