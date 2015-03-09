@@ -61,7 +61,7 @@
 
               <div id="panel-code-input" class="form-group">
                   <label for="code_input">I found this little guy. <i>(look at my belly!)</i></label>
-                <br><input type="text" id="code_input" />
+                  <br><input type="text" id="code_input" value={{ user_entered_code }}/>
                 <div id="checking-code">
                   <span class="glyphicon glyphicon-refresh"></span>
                 </div>
@@ -132,6 +132,12 @@
 
     {% block javascript %}
     <script>
+        {% if user_entered_code %}
+            $(document).ready(function() {
+                $('#panel-add-chapter').get(0).scrollIntoView();
+                $('#add-chapter').show();
+            });
+        {% endif %}
         function initialize_map() {
             var mapOptions = {
                 center: { lat: {{ lilguy.current_lat }},

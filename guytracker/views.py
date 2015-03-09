@@ -35,6 +35,7 @@ def display_guy(request, url_code):
     id = ut.urlsafe_code_to_lilguy_id(url_code)
     secret_code = ut.lilguy_id_to_activation_code(id)
     already_written = request.session.get('has_made_chapter_'+url_code, False)
+    bad_form = False
     print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
     lilguy = Lilguy.objects.get(id=id)    
     # finds all Chapters about lilguy_name
@@ -52,6 +53,7 @@ def display_guy(request, url_code):
                                          msg.ERR_ALREADY_WRITTEN_EXPL},
                                        context_instance=RequestContext(request))
         chapter_form = ChapterForm(request.POST, request.FILES)
+        print 'CODE IS: ' + request.REQUEST.get('code', '')
         if chapter_form.is_valid():
             # Check to make sure that the code is legit.
             if chapter_form.cleaned_data['code'] != secret_code:
@@ -69,7 +71,7 @@ def display_guy(request, url_code):
             request.session['has_made_chapter_'+url_code] = True
             return HttpResponseRedirect("/lilguys/" + "g/" + url_code)
         else:
-            print "form errors: " + str(chapter_form.errors)
+            bad_form = True
 
     # Make a list of all the gps coordinates.
     journey_coords = json.dumps(
@@ -78,6 +80,7 @@ def display_guy(request, url_code):
                               {'lilguy': lilguy, 
                                'url_code': url_code,
                                'already_written': already_written,
+                               'bad_form': bad_form,
                                'chapters': chapters,
                                'journey_coords': journey_coords,
                                'chapter_form': chapter_form},
