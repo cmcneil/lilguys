@@ -30,8 +30,10 @@
         {% for chapter in chapters %}
         <div class="chapter">
           <div class="panel panel-default">
-            {% if chapter.picture %}
-            <img class="img-responsive" src="{{ chapter.picture.url }}">
+            {% if chapter.picture_600 %}
+                <img class="img-responsive" src="{{ chapter.picture_600.url }}">
+            {% elif chapter.picture %}
+                <img class="img-responsive" src="{{ chapter.picture.url }}">
             {% endif %}
             
             <div class="panel-body">
