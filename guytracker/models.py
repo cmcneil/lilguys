@@ -76,10 +76,7 @@ class Chapter(models.Model):
             output = StringIO.StringIO()
             imgFile.save(output, format="JPEG", quality=95)
             output.seek(0)
-            print dir(self.picture)
-            print "name: " + self.picture.name
             self.picture = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.picture.name.split('.')[0], 'image/jpeg', output.len, None)
-            # self.picture = File(output, self.picture.name)
 
         super(Chapter, self).save(*args, **kwargs)
 

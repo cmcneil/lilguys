@@ -12,14 +12,14 @@ def all_guys(request):
     Give a list of all guys.
     """
     lilguys = Lilguy.objects.all()
+    # A dictionary of url_code -> (name, pic)
     lilguy_url_code_to_name_pic = {}
     for guy in lilguys:
         lilguy_url_code_to_name_pic[ut.lilguy_id_to_urlsafe_code(guy.id)] = (guy.name, guy.pic)
-   
+  
+    # We pass a (cleanned) JS version of the lilguys object,
+    # so that client code can use it dynamically.
     lilguys_js = ut.lilguys_to_JS(lilguys)
-    # Make a list of all the gps coordinates.
-    #lilguy_coords = json.dumps(
-     #   map(lambda c: {'lat': c.current_lat, 'lng': c.current_lon}, lilguys))
     return render_to_response('all_guys.html', 
                               {'lilguy_url_code_to_name_pic': lilguy_url_code_to_name_pic,
                                'lilguys_js': lilguys_js},
@@ -32,14 +32,20 @@ def display_guy(request, url_code):
     if not url_code:
         return all_guys(request)
 
+    # The pk id of the lilguy being requested:
     id = ut.urlsafe_code_to_lilguy_id(url_code)
+    # The true activation code:
     secret_code = ut.lilguy_id_to_activation_code(id)
+    # True if the user has already written a chapter for this guy:
     already_written = request.session.get('has_made_chapter_'+url_code, False)
+    # If the user already entered the activation
+    # code, we store it to propogate it on the next page. This is used because
+    # we want a good UX for form validation.
     user_entered_code = ''
-    bad_form = False
-    print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
+    # Uncomment below for helpful log of PMH codes.
+    #print "id: " + str(id) + ", url_code: " + url_code + ", secret_code: " + secret_code
     lilguy = Lilguy.objects.get(id=id)    
-    # finds all Chapters about lilguy_name
+    # finds all Chapters about this lilguy
     chapters = (Chapter.objects.select_related()
                 .filter(lilguy=lilguy)
                 .order_by('timestamp'))
@@ -57,7 +63,6 @@ def display_guy(request, url_code):
         
         user_entered_code = request.REQUEST.get('code', None)
         user_entered_code = user_entered_code if user_entered_code == secret_code else ''
-        print "User entered code! " + user_entered_code
         if chapter_form.is_valid():
             # Check to make sure that the code is legit.
             if chapter_form.cleaned_data['code'] != secret_code:
@@ -74,8 +79,6 @@ def display_guy(request, url_code):
             lilguy.save()
             request.session['has_made_chapter_'+url_code] = True
             return HttpResponseRedirect("/lilguys/" + "g/" + url_code)
-        else:
-            bad_form = True
 
     # Make a list of all the gps coordinates.
     journey_coords = json.dumps(
