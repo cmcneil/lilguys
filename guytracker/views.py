@@ -53,7 +53,9 @@ def display_guy(request, url_code):
                                          msg.ERR_ALREADY_WRITTEN_EXPL},
                                        context_instance=RequestContext(request))
         chapter_form = ChapterForm(request.POST, request.FILES)
-        print 'CODE IS: ' + request.REQUEST.get('code', '')
+        
+        user_entered_code = request.REQUEST.get('code', None)
+        user_entered_code = user_entered_code if user_entered_code == secret_code else None
         if chapter_form.is_valid():
             # Check to make sure that the code is legit.
             if chapter_form.cleaned_data['code'] != secret_code:
@@ -81,6 +83,7 @@ def display_guy(request, url_code):
                                'url_code': url_code,
                                'already_written': already_written,
                                'bad_form': bad_form,
+                               'user_entered_code': user_entered_code,
                                'chapters': chapters,
                                'journey_coords': journey_coords,
                                'chapter_form': chapter_form},
