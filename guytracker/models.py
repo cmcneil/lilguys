@@ -1,4 +1,6 @@
+from django.core.files import File
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.base import ContentFile
 from django.db import models
 from PIL import Image
 import StringIO
@@ -58,23 +60,26 @@ class Chapter(models.Model):
         if self.picture:
             EXTRA_IMAGE_SIZES = {'picture_600': (600, 900)}
             MAX_SIZE = (1280, 1280)
-            imgFile = Image.open(self.image.path)
+            imgFile = Image.open(StringIO.StringIO(self.picture.read()))
             #Convert to RGB
             if imgFile.mode not in ('L', 'RGB'):
                 imgFile = imgFile.convert('RGB')
-            for field_name, size in EXTRA_IMAGE_SIZES:
+            for field_name, size in EXTRA_IMAGE_SIZES.iteritems():
                 field = getattr(self, field_name)
                 working = imgFile.copy()
                 working.thumbnail(size, Image.ANTIALIAS)
-                fp = StringIO()
+                fp = StringIO.StringIO()
                 working.save(fp, format="JPEG", quality=95)
                 cf = ContentFile(fp.getvalue())
-                field.save(name=self.image.name, content=cf, save=False)
+                field.save(name=self.picture.name, content=cf, save=False)
             imgFile.thumbnail(MAX_SIZE, Image.ANTIALIAS)
             output = StringIO.StringIO()
             imgFile.save(output, format="JPEG", quality=95)
             output.seek(0)
-            self.picture = File(output, self.picture.name())
+            print dir(self.picture)
+            print "name: " + self.picture.name
+            self.picture = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.picture.name.split('.')[0], 'image/jpeg', output.len, None)
+            # self.picture = File(output, self.picture.name)
 
         super(Chapter, self).save(*args, **kwargs)
 
