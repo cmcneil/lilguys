@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <link rel="icon" href="{{ STATIC_URL }}favicon.ico">
 
-    <title>{% block title %}lil guys{% endblock %}</title>
+    <title>{% block title %}{% endblock %} [ lilguys ]</title>
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" href="{{ STATIC_URL}}bootstrap.min.css">
@@ -26,20 +26,29 @@
 
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
-
+      
         <div class="navbar-header">
-          <a class="navbar-brand" href="/lilguys">lil guys</a>
-
-          {% block nav %}
-            <a class="navbar-brand" href="/lilguys/about">about</a>
-            <a class="navbar-brand" href="https://github.com/cmcneil/lilguys">github</a>
-            <a class="navbar-brand" href="https://twitter.com/lilguytracker">@lilguytracker</a>
-          {% endblock %}
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/lilguys">lilguys</a>
         </div>
-
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/lilguys/about">about</a></li>
+            <li><a href="https://github.com/cmcneil/lilguys">github</a></li>
+            <li><a href="https://twitter.com/lilguytracker">@lilguytracker</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+        
       </div>
     </nav>
  
+    {% block mapwrap %}
+    <a name="allguysmap"></a>
     <div id="mapwrap">
       <div class="jumbotron">
         {% block map %}
@@ -55,6 +64,7 @@
       {% block avatar %}{% endblock %}
 
     </div>
+    {% endblock %}
 
 
 
@@ -67,11 +77,13 @@
 
 
     <footer class="footer">
-      <a name="about"></a>
+      <a name="whats-going-on"></a>
       <div class="container">
         {% block footer %}
-          <br>
-          <p>this is an art project this is a drill</p>
+        <div id="footer-about">  
+          <p>Hello! This is a collaborative art project from <a href="http://convox.org">Convox</a>.
+    We and assorted friends crafted a bunch of little guys, and let them go free to wander the world! We hope that we can all write their stories together. You can see all the guys out there on <a href="/#allguysmap">this map</a>. If you find a guy, go to its page using the url code on its tag, and enter the code on its belly/body/body-equivalent, and then you can write the next chapter in that guy's adventure before leaving them somewhere to wander until they meet someone else! Hopefully some guys will get to travel the world (:</p>
+        </div>
         {% endblock %}
       </div>
     </footer>

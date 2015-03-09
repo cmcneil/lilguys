@@ -20,7 +20,7 @@
 
 
     {% block content %}
-
+    <div id="chapters-wrap">
 
       <div class="text-center">
         <h1>{{ lilguy.name }}'s adventure</h1>
@@ -60,7 +60,7 @@
               <input id="url_code" type="hidden" value="{{ url_code }}"/>
 
               <div id="panel-code-input" class="form-group">
-                  <label for="code_input">I found this little guy. <i>(look at my belly!)</i></label>
+                  <label for="code_input"><h2>I found this little guy <br><small><em>search my tiny body for a mysterious code.</em></small></h2></label>
                   <br><input type="text" id="code_input" value="{{ user_entered_code }}" />
                 <div id="checking-code">
                   <span class="glyphicon glyphicon-refresh"></span>
@@ -127,6 +127,7 @@
       </div>
       {% endif %}
       </div> 
+    </div> <!-- end #chapters-wrap -->
     {% endblock %}
 
 
