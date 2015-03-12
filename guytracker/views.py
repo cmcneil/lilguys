@@ -87,7 +87,6 @@ def display_guy(request, url_code):
                               {'lilguy': lilguy, 
                                'url_code': url_code,
                                'already_written': already_written,
-                               'bad_form': bad_form,
                                'user_entered_code': user_entered_code,
                                'chapters': chapters,
                                'journey_coords': journey_coords,

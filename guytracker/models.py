@@ -44,8 +44,10 @@ class Lilguy(models.Model):
             imgFile.save(output, format="JPEG", quality=95)
             output.seek(0)
             self.pic = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.pic.name.split('.')[0], 'image/jpeg', output.len, None)
+        
+        super(Lilguy, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+def __unicode__(self):
         return ("Lilguy: " + self.name + 
                 " (" + self.code + "), "
                 "currently located at (" + 
