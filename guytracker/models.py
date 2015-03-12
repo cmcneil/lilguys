@@ -47,7 +47,7 @@ class Lilguy(models.Model):
         
         super(Lilguy, self).save(*args, **kwargs)
 
-def __unicode__(self):
+    def __unicode__(self):
         return ("Lilguy: " + self.name + 
                 " (" + self.code + "), "
                 "currently located at (" + 
