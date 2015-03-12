@@ -14,11 +14,37 @@ class Lilguy(models.Model):
     name = models.CharField(max_length=55)
     # the icon/avatar photo of the little guy
     pic = models.ImageField(upload_to="lilguybook", max_length=200)    
+    # the icon/avatar shrunk to 180px width.
+    pic_180 = models.ImageField(upload_to="lilguybook/180", max_length=200, null=True)
     # longitude and latitude positions of most recently logged location
     current_lon = models.FloatField()
     current_lat = models.FloatField()
     # Timestamp
     timestamp = models.DateTimeField(auto_now_add=True)
+     
+    def save(self, *args, **kwargs):
+        """Override save to resize pic field."""
+        if self.pic:
+            EXTRA_IMAGE_SIZES = {'pic_180': (180, 270)}
+            MAX_SIZE = (1280, 1280)
+            imgFile = Image.open(StringIO.StringIO(self.pic.read()))
+            #Convert to RGB
+            if imgFile.mode not in ('L', 'RGB'):
+                imgFile = imgFile.convert('RGB')
+            for field_name, size in EXTRA_IMAGE_SIZES.iteritems():
+                field = getattr(self, field_name)
+                working = imgFile.copy()
+                working.thumbnail(size, Image.ANTIALIAS)
+                fp = StringIO.StringIO()
+                working.save(fp, format="JPEG", quality=95)
+                cf = ContentFile(fp.getvalue())
+                field.save(name=self.pic.name, content=cf, save=False)
+            imgFile.thumbnail(MAX_SIZE, Image.ANTIALIAS)
+            output = StringIO.StringIO()
+            imgFile.save(output, format="JPEG", quality=95)
+            output.seek(0)
+            self.pic = InMemoryUploadedFile(output,'ImageField', "%s.jpg" %self.pic.name.split('.')[0], 'image/jpeg', output.len, None)
+
     def __unicode__(self):
         return ("Lilguy: " + self.name + 
                 " (" + self.code + "), "

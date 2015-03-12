@@ -15,7 +15,7 @@ def all_guys(request):
     # A dictionary of url_code -> (name, pic)
     lilguy_url_code_to_name_pic = {}
     for guy in lilguys:
-        lilguy_url_code_to_name_pic[ut.lilguy_id_to_urlsafe_code(guy.id)] = (guy.name, guy.pic)
+        lilguy_url_code_to_name_pic[ut.lilguy_id_to_urlsafe_code(guy.id)] = (guy.name, guy.pic_180)
   
     # We pass a (cleanned) JS version of the lilguys object,
     # so that client code can use it dynamically.
