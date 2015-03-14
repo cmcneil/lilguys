@@ -77,6 +77,12 @@ html {
 #chapters-wrap h1 {
   margin: 120px;
 }
+.chapter {
+  margin-bottom: 100px;
+}
+.chapter h3 {
+  margin: 10px 0 20px 0;
+}
 
 /* adventure picture/titles  */
 .adventure-pic-wrap {
@@ -96,9 +102,6 @@ html {
 }
 
 
-.chapter {
-  margin-bottom: 100px;
-}
 
 /* forms */
 #add-chapter > .form-group > textarea, .expand > input {
@@ -138,13 +141,14 @@ input[type="text"] {
 /* guy grid */
 #guy-grid-container h1 {
   font-size: 50px;
-  margin: 0;
+  margin: 10px 0;
 }
 #guy-grid-container h2 {
   margin: 20px 0 50px 0;
 }
 #guy-grid-container h3 {
   text-align: center;
+  font-size: 17px;
   margin: 10px 0;
 }
 #guy-grid .guy-grid-box {
