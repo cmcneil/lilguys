@@ -75,7 +75,7 @@
                 <div class="form-group expand">
                     <h4>Add a chapter to the story of this guy's adventure!</h4>
                     </br>
-                  <label for="id_title">title</label>
+                    <label for="id_title">title <i>(optional)</i></label>
                   {{ chapter_form.title }}
                   {% if chapter_form.title.errors %}
                     <div class="alert alert-danger" role="alert">
@@ -108,7 +108,7 @@
                 </div><br>
 
                 <div class="form-group">  
-                  <label for="id_picture">add photo</label>
+                    <label for="id_picture">add photo <i>(optional)</i></label>
                   {{ chapter_form.picture }}
                   {% if chapter_form.picture.errors %}
                     <div class="alert alert-danger" role="alert">
@@ -116,7 +116,7 @@
                   {% endif %}
                 </div>
                 <div class="form-group input-block">
-                  <label for="id_email">email (for adventure updates!)</label>
+                    <label for="id_email">email <i>(optional, for adventure updates!)</i></label>
                   {{ chapter_form.email }}
                   {% if chapter_form.email.errors %}
                     <div class="alert alert-danger" role="alert">
