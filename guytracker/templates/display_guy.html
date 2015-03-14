@@ -73,7 +73,8 @@
                 {% csrf_token %}
                 {{ chapter_form.code }}
                 <div class="form-group expand">
-                    Add a chapter to the story of this guy's adventure!</br>
+                    <h4>Add a chapter to the story of this guy's adventure!</h4>
+                    </br>
                   <label for="id_title">title</label>
                   {{ chapter_form.title }}
                   {% if chapter_form.title.errors %}
