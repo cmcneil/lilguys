@@ -5,6 +5,7 @@ jQuery(document).ready( function() {
 function auth_code_entered_handler() {
     var url_code = $('#url_code').val();
     var auth_code = $(this).val().toUpperCase();
+    // alert('Code is: ' + auth_code);
     if (auth_code.length < 3) {
         input_color_to('transparent');
     }else {
@@ -18,8 +19,8 @@ function auth_code_entered_handler() {
 }
 
 function code_validation_callback(data) {
-    $('#id_code').val($('#code_input').val().toUpperCase());
     if (data.status === 'VALID') {
+        $('#id_code').val($('#code_input').val().toUpperCase());
         input_color_to('transparent');
  
         $('#panel-code-input').hide(0, function(){

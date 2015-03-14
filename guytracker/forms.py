@@ -15,7 +15,5 @@ class ChapterForm(forms.ModelForm):
         image = self.cleaned_data.get('picture', False)
         if image:
             if image._size > 10*1024*1024:
-                raise ValidationError("Image file too large ( > 10mb )")
+                raise forms.ValidationError("Image file too large ( > 10mb )")
             return image
-        else:
-            raise ValidationError("Couldn't read uploaded image")
