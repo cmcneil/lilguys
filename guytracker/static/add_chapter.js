@@ -1,8 +1,14 @@
 jQuery(document).ready( function() {
     $('#code_input').on('input', auth_code_entered_handler);
+    $('#code_input').keyup(
+        function (event) {
+            if (event.which == 13) {
+                auth_code_entered_handler() 
+            }
+        });
 });
 
-function auth_code_entered_handler() {
+function auth_code_entered_handler(event) {
     var url_code = $('#url_code').val();
     var auth_code = $(this).val().toUpperCase();
     // alert('Code is: ' + auth_code);
