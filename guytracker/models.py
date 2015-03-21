@@ -8,14 +8,12 @@ import StringIO
 class Lilguy(models.Model):
     """ A little guy ready for adventure. """
 
-    # unique key code for editing the little guy
-    code = models.CharField(max_length=22, unique=True)
     # the name of the little guy
     name = models.CharField(max_length=55)
     # the icon/avatar photo of the little guy
     pic = models.ImageField(upload_to="lilguybook", max_length=200)    
     # the icon/avatar shrunk to 180px width.
-    pic_180 = models.ImageField(upload_to="lilguybook/180", max_length=200, null=True)
+    pic_180 = models.ImageField(upload_to="lilguybook/180", max_length=200, null=True, blank=True)
     # longitude and latitude positions of most recently logged location
     current_lon = models.FloatField()
     current_lat = models.FloatField()
