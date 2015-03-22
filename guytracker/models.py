@@ -47,7 +47,7 @@ class Lilguy(models.Model):
 
     def __unicode__(self):
         return ("Lilguy: " + self.name + 
-                " (" + self.code + "), "
+                ", "
                 "currently located at (" + 
                 str(self.current_lon) + ", " + 
                 str(self.current_lat) + ") " )
