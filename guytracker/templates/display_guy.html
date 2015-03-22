@@ -40,7 +40,7 @@
               {% if chapter.title %}
               <h3>{{ chapter.title }}</h3>
               {% endif %}
-              <p>{{ chapter.story_text }}</p>
+              <p>{{ chapter.story_text|linebreaks }}</p>
             </div>
 
             <ul class="list-group">

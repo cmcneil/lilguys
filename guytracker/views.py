@@ -16,7 +16,7 @@ def all_guys(request):
     lilguy_url_code_to_name_pic = {}
     for guy in lilguys:
         lilguy_url_code_to_name_pic[ut.lilguy_id_to_urlsafe_code(guy.id)] = (guy.name, guy.pic_180)
-  
+        print "name: " + str(guy.name) + ", url_code: " + ut.lilguy_id_to_urlsafe_code(guy.id) + ", secret_code: " + ut.lilguy_id_to_activation_code(guy.id)
     # We pass a (cleanned) JS version of the lilguys object,
     # so that client code can use it dynamically.
     lilguys_js = ut.lilguys_to_JS(lilguys)
