@@ -138,6 +138,18 @@ input[type="text"] {
   width: 100%;
 }
 
+/* all guys recent chapters */
+.recent-chapters a .panel {
+  display: block;
+  color: #666;
+}
+.recent-chapters a:hover .panel {
+  background-color: #c2efc5;
+}
+.recent-chapters {
+  margin: 20px 0 40px 0;
+}
+
 /* guy grid */
 #guy-grid-container h1 {
   font-size: 50px;

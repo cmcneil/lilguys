@@ -9,12 +9,37 @@
 
 {% block content %}
 
+    <h1>lil guys <small>made in San Francisco, passed from friend to stranger, seeing how far they can go in the world</small></h1>
+
+    <div class="recent-chapters">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <h2>Recent adventures!</h2><br>
+        </div>
+      </div>
+
+      {% for chapter in recent_chapters %}      
+      <a href="/lilguys/g/{{ chapter.url }}">
+        <div class="panel panel-default">
+          <div class="row">
+            <div class="panel-body">
+              <div class="col-md-3 col-sm-4">
+                <img src="{{ chapter.lilguy.pic_180.url }}" class="img-responsive">
+                {{ chapter.lilguy.name }}
+              </div>
+              <div class="col-md-9 col-sm-8">
+                {{ chapter.story_text|linebreaks }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+
+    </div>
+
   <div id="guy-grid-container">
-
-    <h1>lil guys</h1>
-
-    <h2>scattered all over the world having encounters and adventures, documented by random passing strangers</h2>
-
     <div id="guy-grid">
       <div class="row">
         {% for code, name_pic in lilguy_url_code_to_name_pic.items %}

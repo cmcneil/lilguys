@@ -17,13 +17,20 @@ def all_guys(request):
     for guy in lilguys:
         lilguy_url_code_to_name_pic[ut.lilguy_id_to_urlsafe_code(guy.id)] = (guy.name, guy.pic_180)
         # uncomment to print out secret codes of guys
-        print "name: " + str(guy.name) + ", url_code: " + ut.lilguy_id_to_urlsafe_code(guy.id) + ", secret_code: " + ut.lilguy_id_to_activation_code(guy.id)
+        # print "name: " + str(guy.name) + ", url_code: " + ut.lilguy_id_to_urlsafe_code(guy.id) + ", secret_code: " + ut.lilguy_id_to_activation_code(guy.id)
+
     # We pass a (cleanned) JS version of the lilguys object,
     # so that client code can use it dynamically.
     lilguys_js = ut.lilguys_to_JS(lilguys)
+
+    # get three most recent guy stories
+    recent_chapters = Chapter.objects.select_related().order_by('-id')[:3]
+    for chapter in recent_chapters:
+        chapter.url = ut.lilguy_id_to_urlsafe_code(chapter.lilguy.id)
     return render_to_response('all_guys.html', 
                               {'lilguy_url_code_to_name_pic': lilguy_url_code_to_name_pic,
-                               'lilguys_js': lilguys_js},
+                               'lilguys_js': lilguys_js,
+                               'recent_chapters': recent_chapters},
                               context_instance=RequestContext(request))
 
 def display_guy(request, url_code):
