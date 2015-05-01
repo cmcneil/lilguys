@@ -20,7 +20,7 @@
       </div>
 
       {% for chapter in recent_chapters %}      
-      <a href="/lilguys/g/{{ chapter.url }}">
+      <a href="/lilguys/g/{{ chapter.url }}#{{ chapter.timestamp|date:'U' }}">
         <div class="panel panel-default">
           <div class="row">
             <div class="panel-body">
