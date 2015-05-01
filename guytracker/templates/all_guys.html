@@ -24,12 +24,14 @@
         <div class="panel panel-default">
           <div class="row">
             <div class="panel-body">
-              <div class="col-md-3 col-sm-4">
+              <div class="col-md-3 col-sm-4 col-xs-3">
                 <img src="{{ chapter.lilguy.pic_180.url }}" class="img-responsive">
-                {{ chapter.lilguy.name }}
               </div>
-              <div class="col-md-9 col-sm-8">
-                {{ chapter.story_text|linebreaks }}
+              <div class="col-md-9 col-sm-8 col-xs-9">
+                <p><b>{{ chapter.lilguy.name }} made an appearance in  
+                      {{ chapter.location.city }}, {{ chapter.location.state }} on 
+                      {{ chapter.timestamp|date:"F j" }}:</b></p>
+                {{ chapter.story_text|truncatewords_html:40 }}
               </div>
             </div>
           </div>
@@ -39,6 +41,7 @@
 
     </div>
 
+  <h2>some more guys</h2>
   <div id="guy-grid-container">
     <div id="guy-grid">
       <div class="row">

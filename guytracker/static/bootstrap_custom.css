@@ -145,12 +145,16 @@ input[type="text"] {
 }
 .recent-chapters a:hover .panel {
   background-color: #c2efc5;
+  text-decoration: none;
 }
 .recent-chapters {
-  margin: 20px 0 40px 0;
+  margin: 20px 0 50px 0;
 }
 
 /* guy grid */
+#guy-grid-container {
+  margin: 30px 0;
+}
 #guy-grid-container h1 {
   font-size: 50px;
   margin: 10px 0;

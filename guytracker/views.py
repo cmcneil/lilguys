@@ -25,8 +25,11 @@ def all_guys(request):
 
     # get three most recent guy stories
     recent_chapters = Chapter.objects.select_related().order_by('-id')[:3]
+    coord_request = []
     for chapter in recent_chapters:
         chapter.url = ut.lilguy_id_to_urlsafe_code(chapter.lilguy.id)
+        chapter.location = ut.coords_to_location_name(chapter.found_at_lat, chapter.found_at_lon)
+
     return render_to_response('all_guys.html', 
                               {'lilguy_url_code_to_name_pic': lilguy_url_code_to_name_pic,
                                'lilguys_js': lilguys_js,

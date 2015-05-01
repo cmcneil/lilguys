@@ -1,5 +1,8 @@
 from django.core.serializers.json import Serializer as JSONSerializer
+import json
 import pickle
+import pycurl
+from StringIO import StringIO
 import sys
 
 import scripts.perfect_min_hash as pmh
@@ -84,3 +87,25 @@ class CleanSerializer(JSONSerializer):
 def lilguys_to_JS(lilguys):
     serializer = CleanSerializer(excludes = ['code', 'timestamp'])
     return serializer.serialize(lilguys)
+
+
+def coords_to_location_name(lat, lon):
+    """coords is a list of (longitude, latitude, guy) tuples. 
+       returns dictionary of location names of the city, state, and country"""
+
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + str(lat) + ',' + str(lon) +'&sensor=true'
+    data = StringIO()
+
+    c = pycurl.Curl()
+#   c.setopt(c.WRITEDATA, data)
+    c.setopt(c.WRITEFUNCTION, data.write) # leviathan is using an older version of pycurl:
+    c.setopt(c.URL, url)
+    c.perform()
+
+    data_clean = data.getvalue().replace('\n', '')
+    info = json.loads(data_clean)
+    area_info = info['results'][0]["address_components"]
+
+    return {"city": area_info[3]["long_name"],
+            "state": area_info[5]["long_name"],
+            "country": area_info[6]["long_name"],}
