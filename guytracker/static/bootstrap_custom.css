@@ -1,4 +1,5 @@
 /* 18C927 lime green
+   c2efc5 pastel green
    FF821E pastel orange
    FFCF1E yellow
    9916A7 purple (accent/contrast)  */
@@ -6,6 +7,12 @@
 html {
   position: relative;
   min-height: 100%;
+}
+
+p a {
+  background-color: #eee;
+  color: #9916A7;
+  padding: 1px 3px;
 }
 
 /* navigation */
@@ -75,7 +82,7 @@ html {
 
 /* chapters styles  */
 #chapters-wrap h1 {
-  margin: 120px;
+  margin: 120px 0;
 }
 .chapter {
   margin-bottom: 100px;
@@ -104,6 +111,13 @@ html {
 
 
 /* forms */
+.form-group h3 {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.form-group .form-advice {
+  color: #666;
+}
 #add-chapter > .form-group > textarea, .expand > input {
   width: 100%;
 }
@@ -139,21 +153,24 @@ input[type="text"] {
 }
 
 /* all guys recent chapters */
-.recent-chapters a .panel {
+#recent-chapters a .panel {
   display: block;
   color: #666;
 }
-.recent-chapters a:hover .panel {
+#recent-chapters a:hover .panel {
   background-color: #c2efc5;
   text-decoration: none;
 }
-.recent-chapters {
+#recent-chapters {
   margin: 20px 0 50px 0;
 }
 
 /* guy grid */
 #guy-grid-container {
   margin: 30px 0;
+}
+#guy-grid-container a {
+  color: #666;
 }
 #guy-grid-container h1 {
   font-size: 50px;

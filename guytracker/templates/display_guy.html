@@ -1,6 +1,6 @@
 {% extends "base.html" %}
     
-    {% block title %}{{ lilguy.name }}'s adventure{% endblock %}
+    {% block title %}{{ lilguy.name }}'s adventure so far{% endblock %}
 
     {% block map %}
     <div id="map-canvas"></div>
@@ -22,9 +22,8 @@
     {% block content %}
     <div id="chapters-wrap">
 
-      <div class="text-center">
-        <h1>{{ lilguy.name }}'s adventure</h1>
-      </div>
+      <h1>This lil guy's name is <em>{{ lilguy.name }}</em>. <small>This is their adventure thus far, as documented by a stranger like you.</small></h1>
+
 
       <div class="container">
         {% for chapter in chapters %}
@@ -74,34 +73,45 @@
               <form id="add-chapter" enctype="multipart/form-data" action="/lilguys/g/{{ url_code }}/" method="post">
                 {% csrf_token %}
                 {{ chapter_form.code }}
-                <div class="form-group expand">
-                    <h4>Add a chapter to the story of this guy's adventure!</h4>
-                    </br>
-                    <label for="id_title">title <i>(optional)</i></label>
-                  {{ chapter_form.title }}
-                  {% if chapter_form.title.errors %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ chapter_form.title.errors }}</div>
+                <div class="form-group">
+                  <h3>Add a chapter to the story of this guy's adventure!</h3>
+                </div>
+
+                <div class="form-group">  
+                  <label for="id_picture"><b>picture</b> <span class="form-advice">of this guy's intrepid exploration of the world under your care</span></label>
+                  {{ chapter_form.picture }}
+                  {% if chapter_form.picture.errors %}
+                  <div class="alert alert-danger" role="alert">
+                    {{ chapter_form.picture.errors }}</div>
                   {% endif %}
                 </div>
-                <div class="form-group">  
-                  
-                  <label for="id_story">story</label>
+
+                <div class="form-group expand">
+                    <label for="id_title"><b>title</b> <span class="form-advice"><i>(optional)</i></span></label>
+                    {{ chapter_form.title }}
+                    {% if chapter_form.title.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ chapter_form.title.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">                    
+                  <label for="id_story"><b>story</b> <span class="form-advice"></span></label>
                   {{ chapter_form.story_text }}
                   {% if chapter_form.story_text.errors %}
-                    <div class="alert alert-danger" role="alert">
-                          {{ chapter_form.story_text.errors }}</div>
+                  <div class="alert alert-danger" role="alert">
+                    {{ chapter_form.story_text.errors }}</div>
                   {% endif %}
                 </div>
 
                 <div class="form-group">  
-                    <label for="id_found_at_lat">where did you find me? <i>(click map)</i></label>
+                  <label for="id_found_at_lat"><b>where</b> <span class="form-advice">did you find me? <i>(click map)</i></span</label>
                   {{ chapter_form.found_at_lat}}
                   {{ chapter_form.found_at_lon }}
                   {% if chapter_form.found_at_lat.errors %}
-                    <div class="alert alert-danger" role="alert">
-                      {{ chapter_form.found_at_lat.errors }}
-                      {{ chapter_form.found_at_lon.errors }} </div>
+                  <div class="alert alert-danger" role="alert">
+                    {{ chapter_form.found_at_lat.errors }}
+                    {{ chapter_form.found_at_lon.errors }} </div>
                   {% endif %}
                 </div>
 
@@ -109,16 +119,8 @@
                   <div id="id_map"></div>
                 </div><br>
 
-                <div class="form-group">  
-                    <label for="id_picture">add photo <i>(optional)</i></label>
-                  {{ chapter_form.picture }}
-                  {% if chapter_form.picture.errors %}
-                    <div class="alert alert-danger" role="alert">
-                          {{ chapter_form.picture.errors }}</div>
-                  {% endif %}
-                </div>
                 <div class="form-group input-block">
-                    <label for="id_email">email <i>(optional, for adventure updates!)</i></label>
+                  <label for="id_email"><b>email</b> <span class="form-advice">for adventure updates <i>(optional)</i></span></label>
                   {{ chapter_form.email }}
                   {% if chapter_form.email.errors %}
                     <div class="alert alert-danger" role="alert">
