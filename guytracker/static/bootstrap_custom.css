@@ -18,9 +18,27 @@ p a {
 /* navigation */
 .navbar-static-top {
   margin-bottom: 0;
+  background: rgba(0,0,0,0.7);
+  border: 0;
+}
+.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav>li>a:hover {
+  color: #fff;
 }
 .navbar-brand {
   margin-right: 10px;
+}
+
+/* map  */
+#mapwrap {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+.jumbotron {
+  padding: 0;}
+.map-end {
+  margin-bottom: 500px;
 }
 
 /* FOOTER - not static, not glued to bottom */
@@ -50,16 +68,6 @@ p a {
 #footer-nav {
   margin: 20px 0;
   font-size: 12px;
-}
-
-/* map  */
-#mapwrap {
-  max-width: 100%;
-  position: relative;
-}
-.jumbotron {
-  padding: 10px;
-
 }
 
 /* for the lilguy avatar */
