@@ -106,6 +106,4 @@ def coords_to_location_name(lat, lon):
     info = json.loads(data_clean)
     area_info = info['results'][0]["address_components"]
 
-    return {"city": area_info[3]["long_name"],
-            "state": area_info[5]["long_name"],
-            "country": area_info[6]["long_name"],}
+    return {"city": area_info[2]["long_name"]}
