@@ -38,13 +38,14 @@
               
               <div class="panel-body">
                 {% if chapter.title %}
-                <h3>{{ chapter.title }}</h3>
+                <h2>{{ chapter.title }}</h2>
                 {% endif %}
+                <h5>{{ chapter.timestamp|date:"F j, Y" }}</h5>
                 <p>{{ chapter.story_text|linebreaks }}</p>
               </div>
 
               <ul class="list-group">
-                <li class="list-group-item">Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}}) | {{ chapter.timestamp }} 
+                <li class="list-group-item">Found at ({{ chapter.found_at_lon }}, {{ chapter.found_at_lat}}) 
                 </li>
 
               </ul>
