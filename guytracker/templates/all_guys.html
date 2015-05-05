@@ -7,8 +7,9 @@
 {% endblock %}
 
 
-{% block content %}
+{% block content-wrap %}
 
+<div class="container">
     <h1>lil guys <small>made in San Francisco, passed from friend to stranger, seeing how far they can go in the world</small></h1>
 
     <div id="recent-chapters">
@@ -21,16 +22,16 @@
 
       {% for chapter in recent_chapters %}      
       <a href="/lilguys/g/{{ chapter.url }}#{{ chapter.timestamp|date:'U' }}">
-        <div class="panel panel-default">
+        <div class="panel panel-recent-chapter">
           <div class="row">
-            <div class="panel-body">
-              <div class="col-md-3 col-sm-4 col-xs-3">
-                <img src="{{ chapter.lilguy.pic_180.url }}" class="img-responsive">
-              </div>
-              <div class="col-md-9 col-sm-8 col-xs-9">
+            <div class="recent-avatar">
+              <img src="{{ chapter.lilguy.pic_180.url }}" class="img-responsive">
+            </div>
+            <div class="recent-synopsis">
+              <div class="panel-body">
                 <p><b>{{ chapter.lilguy.name }} made an appearance in  
-                      {{ chapter.location.city }}, {{ chapter.location.state }} on 
-                      {{ chapter.timestamp|date:"F j" }}:</b></p>
+                    {{ chapter.location.city }}, {{ chapter.location.state }} on 
+                    {{ chapter.timestamp|date:"F j" }}:</b></p>
                 {{ chapter.story_text|truncatewords_html:40 }}
               </div>
             </div>
@@ -40,25 +41,29 @@
       {% endfor %}
 
     </div>
+</div>
 
-  <h2>some more guys</h2>
-  <div id="guy-grid-container">
-    <div id="guy-grid">
-      <div class="row">
-        {% for code, name_pic in lilguy_url_code_to_name_pic.items %}
-        <div class="col-md-4 col-sm-4 col-xs-4 guy-grid-box">
-          <a href="/lilguys/g/{{ code }}">
-            <img class="img-responsive" src="{{ name_pic.1.url }}" alt="">
-          </a>
-          <h3>
-            <a href="/lilguys/g/{{ code }}">{{ name_pic.0 }}</a>
-          </h3>
+<div class="container-fluid all-guys">
+  <div class="container">
+    <h2>some more guys</h2>
+    <div id="guy-grid-container">
+      <div id="guy-grid">
+        <div class="row">
+          {% for code, name_pic in lilguy_url_code_to_name_pic.items %}
+          <div class="col-md-4 col-sm-4 col-xs-4 guy-grid-box">
+            <a href="/lilguys/g/{{ code }}">
+              <img class="img-responsive" src="{{ name_pic.1.url }}" alt="">
+            </a>
+            <h3>
+              <a href="/lilguys/g/{{ code }}">{{ name_pic.0 }}</a>
+            </h3>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
     </div>
   </div>
-  
+</div>
 {% endblock %}
 
 

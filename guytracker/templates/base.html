@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="{{ STATIC_URL}}bootstrap.min.css">
 
     <!-- <link rel="stylesheet" href="/bootstrap_custom.css"> -->
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>  
     <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap_custom.css">
-
     <link rel="stylesheet" href="{{ STATIC_URL }}guy_map.css">
     
     {% dajaxice_js_import %}
@@ -26,7 +26,6 @@
 
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
-      
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -72,11 +71,11 @@
 
 
 
-
+    {% block content-wrap %}
     <div class="container">
       {% block content %}{% endblock %}
     </div>
-
+    {% endblock %}
     
 
 
