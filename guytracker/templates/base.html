@@ -104,8 +104,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
-    <!-- Seriously, Windows? u_u -->
-    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+         http://getbootstrap.com/getting-started/#support-ie10-width -->
+    <script type="text/javascript">
+         (function () {
+         'use strict';
+         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+         var msViewportStyle = document.createElement('style')
+         msViewportStyle.appendChild(
+         document.createTextNode(
+         '@-ms-viewport{width:auto!important}'
+         )
+         )
+         document.querySelector('head').appendChild(msViewportStyle)
+         }
+         })();
+    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMi4n47QH6dNiVtxHe0tpV5RZZup6fLY8"></script>
     {% block javascript %}
     {% endblock %}
